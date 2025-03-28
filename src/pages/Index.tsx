@@ -1,13 +1,44 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
+import React, { useState } from 'react';
+import { RoastProvider } from '@/contexts/RoastContext';
+import Header from '@/components/Header';
+import WelcomeScreen from '@/components/WelcomeScreen';
+import QuestionContainer from '@/components/QuestionContainer';
+import RoastSummaryScreen from '@/components/RoastSummaryScreen';
+import { useRoast } from '@/contexts/RoastContext';
+
+// Main app wrapper with provider
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <RoastProvider>
+      <div className="min-h-screen bg-background flex flex-col items-center">
+        <Header />
+        <main className="flex-1 w-full max-w-6xl px-4 py-8 flex items-center justify-center">
+          <RoastApp />
+        </main>
+        <footer className="py-4 text-center text-sm text-muted-foreground">
+          <p>© {new Date().getFullYear()} Crypto Roast Bot • All rights reserved</p>
+        </footer>
       </div>
-    </div>
+    </RoastProvider>
+  );
+};
+
+// Inner component that uses the context
+const RoastApp = () => {
+  const [started, setStarted] = useState(false);
+  const { isFinished } = useRoast();
+  
+  const handleStart = () => {
+    setStarted(true);
+  };
+  
+  return (
+    <>
+      {!started && <WelcomeScreen onStart={handleStart} />}
+      {started && !isFinished && <QuestionContainer />}
+      {started && isFinished && <RoastSummaryScreen />}
+    </>
   );
 };
 
