@@ -5,37 +5,26 @@
 
 @layer base {
   :root {
-    --background: 0 0% 7%;
+    --background: 0 0% 0%;
     --foreground: 210 40% 98%;
-
-    --card: 0 0% 12%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 0 0% 12%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 184 100% 84%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 184 100% 84%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 182 91% 83%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 182 91% 83%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 184 100% 84%;
-
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 182 91% 83%;
     --radius: 0.5rem;
-
-    --selected: 184 100% 84%;
   }
 }
 
@@ -43,26 +32,40 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+}
 
-  .terminal-text {
-    color: hsl(var(--primary));
-    text-shadow: 0 0 5px rgba(178, 247, 254, 0.5);
-  }
-  
-  .option-button {
-    @apply border border-primary/30 bg-card hover:bg-primary hover:text-primary-foreground transition-all duration-200 rounded-md p-4 text-left;
-  }
+.terminal-text {
+  color: #B2F7FE;
+  text-shadow: 0 0 10px rgba(178, 247, 254, 0.5);
+}
 
-  .option-button.selected {
-    @apply bg-[#B2F7FE] text-black border-[#B2F7FE];
-  }
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
 
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary to-white text-transparent bg-clip-text;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
+
+button.option-button {
+  @apply py-3 px-4 text-left rounded-md border transition-colors;
+  @apply cursor-pointer hover:bg-primary/20 hover:border-primary/50;
+  @apply bg-background border-border;
+}
+
+button.option-button.selected {
+  @apply bg-[#B2F7FE] border-[#B2F7FE] text-black cursor-default;
+}
+
+button.option-button:disabled:not(.selected) {
+  @apply cursor-not-allowed opacity-70;
 }

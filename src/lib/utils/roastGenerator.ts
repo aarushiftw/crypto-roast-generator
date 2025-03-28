@@ -1,4 +1,3 @@
-
 import { roastFlow, classifications, traitsConfig } from "@/lib/data/questions";
 import { 
   UserTraits, 
@@ -23,8 +22,6 @@ export function calculateTraits(responses: UserResponse[]): UserTraits {
   // Process all user responses to calculate trait scores
   responses.forEach(response => {
     // Extract scores from the response and add to traits
-    // This would need implementation based on the actual response structure
-    // For now, we'll just use placeholder values
     if (response.scores) {
       Object.entries(response.scores).forEach(([traitId, score]) => {
         if (traitId in traits) {

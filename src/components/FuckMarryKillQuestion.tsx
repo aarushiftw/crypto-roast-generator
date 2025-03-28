@@ -11,18 +11,26 @@ interface FuckMarryKillQuestionProps {
 }
 
 const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question }) => {
-  const { addFMKResponse, userFMKResponses, nextQuestion, addResponse } = useRoast();
+  const { 
+    addFMKResponse, 
+    userFMKResponses, 
+    nextQuestion, 
+    addResponse,
+    responseText, 
+    setResponseText,
+    answerSelected, 
+    setAnswerSelected 
+  } = useRoast();
+  
   const [responses, setResponses] = useState<{[protocol: string]: ActionType | null}>({});
   const [currentProtocolIndex, setCurrentProtocolIndex] = useState(0);
-  const [showingResponse, setShowingResponse] = useState(false);
-  const [responseText, setResponseText] = useState('');
   
   const currentProtocol = question.protocols[currentProtocolIndex];
   const questionText = getRandomItem(question.variations);
   const currentResponses = userFMKResponses.get(question.id) || {};
   
   const handleAction = (protocol: string, action: ActionType) => {
-    if (showingResponse) return;
+    if (answerSelected) return;
     
     // Update local state
     setResponses({
@@ -37,15 +45,15 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
     const responseOptions = question.responsePatterns[action][protocol];
     const response = getRandomItem(responseOptions);
     setResponseText(response);
-    setShowingResponse(true);
+    setAnswerSelected(true);
   };
   
   const handleContinue = () => {
-    setShowingResponse(false);
-    
     if (currentProtocolIndex < question.protocols.length - 1) {
       // Move to next protocol
       setCurrentProtocolIndex(currentProtocolIndex + 1);
+      setAnswerSelected(false);
+      setResponseText('');
     } else {
       // All protocols answered, add full response and move to next question
       addResponse({
@@ -66,7 +74,7 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
         className="text-xl md:text-2xl font-bold terminal-text mb-4"
       />
       
-      {!showingResponse ? (
+      {!answerSelected ? (
         <div className="space-y-4">
           <h3 className="text-xl font-semibold">{currentProtocol}</h3>
           
@@ -75,11 +83,9 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
               <button
                 key={action}
                 onClick={() => handleAction(currentProtocol, action)}
-                className={`option-button flex justify-center items-center py-3 ${
-                  responses[currentProtocol] === action ? 'selected' : ''
-                }`}
+                className="py-3 px-4 text-center rounded-md border hover:bg-primary/20 hover:border-primary/50 transition-colors uppercase font-medium"
               >
-                {action.toUpperCase()}
+                {action}
               </button>
             ))}
           </div>

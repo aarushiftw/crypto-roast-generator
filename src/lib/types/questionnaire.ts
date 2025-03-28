@@ -45,14 +45,14 @@ export interface FuckMarryKillQuestion {
   variations: string[];
   protocols: string[];
   responsePatterns: {
-    [key in ActionType]: {
-      [protocol: string]: string[];
-    }
+    fuck: Record<string, string[]>;
+    marry: Record<string, string[]>;
+    kill: Record<string, string[]>;
   };
   traitImplications: {
-    [key in ActionType]: {
-      [protocol: string]: TraitScores;
-    }
+    fuck: Record<string, TraitScores>;
+    marry: Record<string, TraitScores>;
+    kill: Record<string, TraitScores>;
   };
 }
 
@@ -87,6 +87,7 @@ export interface UserResponse {
     protocol: string;
     action: ActionType;
   }[];
+  scores?: Record<TraitId, number>;
 }
 
 export interface UserTraits {

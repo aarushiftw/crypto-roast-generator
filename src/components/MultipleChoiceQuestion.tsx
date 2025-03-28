@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import { QuestionData } from '@/lib/types/questionnaire';
 import { getRandomItem } from '@/lib/utils/helpers';
@@ -11,15 +11,19 @@ interface MultipleChoiceQuestionProps {
 }
 
 const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ question }) => {
-  const { addResponse, nextQuestion } = useRoast();
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(null);
-  const [showResponse, setShowResponse] = useState(false);
-  const [responseText, setResponseText] = useState('');
+  const { 
+    addResponse, 
+    nextQuestion, 
+    answerSelected, 
+    setAnswerSelected, 
+    responseText, 
+    setResponseText 
+  } = useRoast();
 
   const handleSelectAnswer = (index: number) => {
-    if (selectedAnswerIndex !== null) return; // Prevent multiple selections
+    if (answerSelected) return; // Prevent multiple selections
     
-    setSelectedAnswerIndex(index);
+    setAnswerSelected(true);
     const selectedAnswer = question.answers[index];
     const response = getRandomItem(selectedAnswer.responses);
     setResponseText(response);
@@ -29,9 +33,6 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
       questionId: question.id,
       answerIndex: index,
     });
-    
-    // Show the witty response
-    setShowResponse(true);
   };
 
   const handleContinue = () => {
@@ -53,8 +54,14 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
             <button
               key={index}
               onClick={() => handleSelectAnswer(index)}
-              disabled={selectedAnswerIndex !== null}
-              className={`option-button ${selectedAnswerIndex === index ? 'selected' : ''}`}
+              disabled={answerSelected}
+              className={`py-3 px-4 text-left rounded-md border transition-colors
+                ${answerSelected 
+                  ? 'cursor-not-allowed opacity-70' 
+                  : 'cursor-pointer hover:bg-primary/20 hover:border-primary/50'}
+                ${answerSelected === true && index === userResponse?.answerIndex
+                  ? 'bg-[#B2F7FE] border-[#B2F7FE] text-black'
+                  : 'bg-background border-border'}`}
             >
               {answer.text}
             </button>
@@ -62,7 +69,7 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
         </div>
       </div>
 
-      {showResponse && (
+      {answerSelected && (
         <div className="mt-6 space-y-4">
           <TypewriterText 
             text={`"${responseText}"`} 
