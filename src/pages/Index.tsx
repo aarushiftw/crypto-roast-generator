@@ -11,13 +11,13 @@ import { useRoast } from '@/contexts/RoastContext';
 const Index = () => {
   return (
     <RoastProvider>
-      <div className="min-h-screen bg-background flex flex-col items-center">
+      <div className="min-h-screen bg-background flex flex-col items-center cyber-bg">
         <Header />
-        <main className="flex-1 w-full max-w-6xl px-4 py-12 flex items-center justify-center">
+        <main className="flex-1 w-full max-w-6xl px-4 py-6 flex items-center justify-center">
           <RoastApp />
         </main>
         <footer className="py-4 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Crypto Roast Bot • All rights reserved</p>
+          <p>© {new Date().getFullYear()} Brahma Network • All rights reserved</p>
         </footer>
       </div>
     </RoastProvider>

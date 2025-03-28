@@ -21,13 +21,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
   };
 
   return (
-    <div className="p-8 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full text-center">
-      <h1 className="text-3xl font-bold mb-10 gradient-text">CRYPTO ROAST BOT</h1>
+    <div className="p-8 bg-card/80 rounded-lg shadow-lg cyberpunk-border max-w-2xl w-full text-center">
+      <h1 className="text-3xl font-bold mb-6 gradient-text">
+        Ready to have your onchain existence mercilessly judged?
+      </h1>
       
-      <div className="space-y-6 text-left">
+      <div className="space-y-6 text-left px-4">
         <TypewriterText 
-          text="Ready to have your sad crypto existence mercilessly judged?" 
-          className="text-xl font-medium terminal-text"
+          text="Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. Everything you did onchain, will reveal what your ENS name desperately tries to rebrand." 
+          className="text-lg font-medium terminal-text"
           onComplete={handleTypingComplete}
         />
         
@@ -36,17 +38,13 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
             <Button
               onClick={handleClick} 
               size="lg"
-              className="w-2/3"
+              className="w-2/3 bg-primary/90 hover:bg-primary text-primary-foreground font-medium"
             >
               Roast Me
             </Button>
           </div>
         )}
       </div>
-      
-      <p className="mt-10 text-sm text-muted-foreground">
-        Answer questions about your crypto habits and receive a personalized roast
-      </p>
     </div>
   );
 };

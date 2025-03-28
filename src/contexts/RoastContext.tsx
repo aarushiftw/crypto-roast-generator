@@ -47,7 +47,7 @@ interface RoastProviderProps {
 }
 
 export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
-  // Combine and randomly select 10 questions (mixing regular and FMK questions)
+  // Combine and randomly select questions (limiting FMK questions to max 2)
   const [shuffledQuestions, setShuffledQuestions] = useState<(QuestionData | FuckMarryKillQuestion)[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userResponses, setUserResponses] = useState<UserResponse[]>([]);
@@ -69,9 +69,21 @@ export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
 
   // Initialize questions on component mount
   useEffect(() => {
-    const allQuestions = [...questions, ...fmkQuestions];
-    const randomQuestions = shuffleArray(allQuestions).slice(0, 10); // Select 10 random questions
-    setShuffledQuestions(randomQuestions);
+    // Shuffle both question types
+    const shuffledMCQuestions = shuffleArray([...questions]);
+    const shuffledFMKQuestions = shuffleArray([...fmkQuestions]);
+    
+    // Limit FMK questions to max 2
+    const limitedFMKQuestions = shuffledFMKQuestions.slice(0, 2);
+    
+    // Calculate how many MC questions we need to get to 10 total
+    const mcQuestionsNeeded = 10 - limitedFMKQuestions.length;
+    const selectedMCQuestions = shuffledMCQuestions.slice(0, mcQuestionsNeeded);
+    
+    // Combine and shuffle again for final order
+    const allSelectedQuestions = shuffleArray([...selectedMCQuestions, ...limitedFMKQuestions]);
+    
+    setShuffledQuestions(allSelectedQuestions);
   }, []);
 
   const currentQuestion = currentQuestionIndex < shuffledQuestions.length 
@@ -148,11 +160,21 @@ export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
   };
 
   const restartQuiz = () => {
-    // Re-shuffle questions for a new quiz
-    const allQuestions = [...questions, ...fmkQuestions];
-    const randomQuestions = shuffleArray(allQuestions).slice(0, 10);
+    // Re-shuffle questions for a new quiz, limiting FMK questions to 2
+    const shuffledMCQuestions = shuffleArray([...questions]);
+    const shuffledFMKQuestions = shuffleArray([...fmkQuestions]);
     
-    setShuffledQuestions(randomQuestions);
+    // Limit FMK questions to max 2
+    const limitedFMKQuestions = shuffledFMKQuestions.slice(0, 2);
+    
+    // Calculate how many MC questions we need to get to 10 total
+    const mcQuestionsNeeded = 10 - limitedFMKQuestions.length;
+    const selectedMCQuestions = shuffledMCQuestions.slice(0, mcQuestionsNeeded);
+    
+    // Combine and shuffle again for final order
+    const allSelectedQuestions = shuffleArray([...selectedMCQuestions, ...limitedFMKQuestions]);
+    
+    setShuffledQuestions(allSelectedQuestions);
     setCurrentQuestionIndex(0);
     setUserResponses([]);
     setRoastResult(null);

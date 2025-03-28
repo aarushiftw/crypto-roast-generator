@@ -67,7 +67,7 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
   };
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {!answerSelected ? (
         <div className="space-y-6">
           <h2 className="text-xl md:text-2xl font-bold text-primary mb-4">
@@ -75,14 +75,15 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
           </h2>
           
           <div className="mt-6">
-            <h3 className="text-xl font-semibold mb-4">{currentProtocol}</h3>
+            <h3 className="text-xl font-semibold mb-4 text-foreground/90">{currentProtocol}</h3>
             
             <div className="grid grid-cols-3 gap-3">
               {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
                 <button
                   key={action}
                   onClick={() => handleAction(currentProtocol, action)}
-                  className="py-4 px-3 text-center rounded-md border hover:bg-primary/20 hover:border-primary/50 transition-colors uppercase font-medium"
+                  className="py-4 px-3 text-center rounded-md border hover:bg-primary/20 hover:border-primary/50 
+                    transition-all duration-300 uppercase font-medium bg-card/30 border-border"
                 >
                   {action}
                 </button>
@@ -91,13 +92,13 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
           </div>
         </div>
       ) : (
-        <Card className="p-6 border-primary/30 animate-fade-in">
-          <h3 className="text-lg font-semibold mb-4">Analysis</h3>
-          <p className="text-lg italic text-primary mb-6">"{responseText}"</p>
+        <Card className="p-6 border-primary/30 animate-slide-up bg-card/80">
+          <h3 className="text-lg font-semibold mb-4 text-primary">Insight</h3>
+          <p className="text-lg text-primary/90 mb-6">{responseText}</p>
           
           <Button 
             onClick={handleContinue} 
-            className="w-full mt-2"
+            className="w-full mt-2 bg-primary/80 hover:bg-primary text-primary-foreground"
           >
             {currentProtocolIndex < question.protocols.length - 1 ? 'Next Protocol' : 'Next Question'}
           </Button>

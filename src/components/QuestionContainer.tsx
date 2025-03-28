@@ -9,15 +9,15 @@ const QuestionContainer: React.FC = () => {
   const { currentQuestion, currentQuestionIndex, totalQuestions } = useRoast();
 
   if (!currentQuestion) {
-    return <div className="p-6 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full">
+    return <div className="p-6 bg-card/80 rounded-lg shadow-lg cyberpunk-border max-w-2xl w-full">
       <p className="text-center">Loading next question...</p>
     </div>;
   }
 
   return (
-    <div className="p-6 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full">
+    <div className="p-6 bg-card/80 rounded-lg shadow-lg cyberpunk-border max-w-2xl w-full">
       <div className="flex justify-between items-center mb-6">
-        <span className="text-sm text-muted-foreground font-medium">
+        <span className="text-sm text-primary font-medium">
           Question {currentQuestionIndex + 1} of {totalQuestions}
         </span>
       </div>
