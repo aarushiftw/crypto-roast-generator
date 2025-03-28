@@ -3,8 +3,8 @@ import React from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import { QuestionData } from '@/lib/types/questionnaire';
 import { getRandomItem } from '@/lib/utils/helpers';
-import TypewriterText from './TypewriterText';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
 interface MultipleChoiceQuestionProps {
   question: QuestionData;
@@ -42,52 +42,39 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
   const questionText = getRandomItem(question.variations);
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="space-y-4">
-        <TypewriterText 
-          text={questionText} 
-          className="text-xl md:text-2xl font-bold terminal-text"
-        />
-        
-        <div className="grid grid-cols-1 gap-3 mt-6">
-          {question.answers.map((answer, index) => (
-            <button
-              key={index}
-              onClick={() => handleSelectAnswer(index)}
-              disabled={answerSelected}
-              className={`py-3 px-4 text-left rounded-md border transition-colors
-                ${answerSelected 
-                  ? 'cursor-not-allowed opacity-70' 
-                  : 'cursor-pointer hover:bg-primary/20 hover:border-primary/50'}
-                ${answerSelected && index === question.answers.findIndex((_, i) => i === index)
-                  ? 'bg-[#B2F7FE] border-[#B2F7FE] text-black'
-                  : 'bg-background border-border'}`}
-            >
-              {answer.text}
-            </button>
-          ))}
+    <div className="space-y-6">
+      {!answerSelected ? (
+        <div className="space-y-6">
+          <h2 className="text-xl md:text-2xl font-bold text-primary mb-6">
+            {questionText}
+          </h2>
+          
+          <div className="grid grid-cols-1 gap-3 mt-6">
+            {question.answers.map((answer, index) => (
+              <button
+                key={index}
+                onClick={() => handleSelectAnswer(index)}
+                className={`py-4 px-5 text-left rounded-md border transition-colors
+                  hover:bg-primary/20 hover:border-primary/50
+                  bg-background border-border`}
+              >
+                {answer.text}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-
-      {answerSelected && (
-        <div className="mt-6 space-y-4">
-          <TypewriterText 
-            text={`"${responseText}"`} 
-            className="text-lg italic text-primary"
-            delay={500}
-            onComplete={() => setTimeout(() => {
-              document.getElementById('continue-button')?.classList.remove('opacity-0');
-            }, 500)}
-          />
+      ) : (
+        <Card className="p-6 border-primary/30 animate-fade-in">
+          <h3 className="text-lg font-semibold mb-4">Analysis</h3>
+          <p className="text-lg italic text-primary mb-6">"{responseText}"</p>
           
           <Button 
-            id="continue-button"
             onClick={handleContinue} 
-            className="w-full mt-4 transition-opacity duration-500 opacity-0"
+            className="w-full mt-2"
           >
-            Continue
+            Next Question
           </Button>
-        </div>
+        </Card>
       )}
     </div>
   );

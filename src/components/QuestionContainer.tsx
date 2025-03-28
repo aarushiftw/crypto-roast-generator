@@ -16,8 +16,8 @@ const QuestionContainer: React.FC = () => {
 
   return (
     <div className="p-6 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full">
-      <div className="flex justify-between items-center mb-4">
-        <span className="text-sm text-muted-foreground">
+      <div className="flex justify-between items-center mb-6">
+        <span className="text-sm text-muted-foreground font-medium">
           Question {currentQuestionIndex + 1} of {totalQuestions}
         </span>
       </div>

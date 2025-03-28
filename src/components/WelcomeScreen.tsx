@@ -21,8 +21,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
   };
 
   return (
-    <div className="p-6 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full text-center">
-      <h1 className="text-3xl font-bold mb-8 gradient-text">CRYPTO ROAST BOT</h1>
+    <div className="p-8 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full text-center">
+      <h1 className="text-3xl font-bold mb-10 gradient-text">CRYPTO ROAST BOT</h1>
       
       <div className="space-y-6 text-left">
         <TypewriterText 
@@ -32,7 +32,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         />
         
         {showStartButton && (
-          <div className="flex justify-center pt-4 animate-fade-in">
+          <div className="flex justify-center pt-6 animate-fade-in">
             <Button
               onClick={handleClick} 
               size="lg"
@@ -44,7 +44,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         )}
       </div>
       
-      <p className="mt-8 text-sm text-muted-foreground">
+      <p className="mt-10 text-sm text-muted-foreground">
         Answer questions about your crypto habits and receive a personalized roast
       </p>
     </div>

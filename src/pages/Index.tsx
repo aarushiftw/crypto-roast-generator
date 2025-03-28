@@ -13,7 +13,7 @@ const Index = () => {
     <RoastProvider>
       <div className="min-h-screen bg-background flex flex-col items-center">
         <Header />
-        <main className="flex-1 w-full max-w-6xl px-4 py-8 flex items-center justify-center">
+        <main className="flex-1 w-full max-w-6xl px-4 py-12 flex items-center justify-center">
           <RoastApp />
         </main>
         <footer className="py-4 text-center text-sm text-muted-foreground">
@@ -34,11 +34,11 @@ const RoastApp = () => {
   };
   
   return (
-    <>
+    <div className="w-full flex justify-center">
       {!started && <WelcomeScreen onStart={handleStart} />}
       {started && !isFinished && <QuestionContainer />}
       {started && isFinished && <RoastSummaryScreen />}
-    </>
+    </div>
   );
 };
 
