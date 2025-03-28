@@ -22,14 +22,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
 
   return (
     <div className="p-8 bg-card/80 rounded-lg shadow-lg cyberpunk-border max-w-2xl w-full text-center">
-      <h1 className="text-3xl font-bold mb-6 gradient-text">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
         Ready to have your onchain existence mercilessly judged?
       </h1>
       
-      <div className="space-y-6 text-left px-4">
+      <div className="space-y-6 px-4">
         <TypewriterText 
           text="Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. Everything you did onchain, will reveal what your ENS name desperately tries to rebrand." 
-          className="text-lg font-medium terminal-text"
+          className="text-lg font-medium terminal-text text-center"
           onComplete={handleTypingComplete}
         />
         

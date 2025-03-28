@@ -1,12 +1,21 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
 import FuckMarryKillQuestion from './FuckMarryKillQuestion';
 import { QuestionData, FuckMarryKillQuestion as FMKQuestionType } from '@/lib/types/questionnaire';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 const QuestionContainer: React.FC = () => {
-  const { currentQuestion, currentQuestionIndex, totalQuestions } = useRoast();
+  const { 
+    currentQuestion, 
+    currentQuestionIndex, 
+    totalQuestions, 
+    nextQuestion, 
+    answerSelected,
+    responseText
+  } = useRoast();
 
   if (!currentQuestion) {
     return <div className="p-6 bg-card/80 rounded-lg shadow-lg cyberpunk-border max-w-2xl w-full">
@@ -28,6 +37,24 @@ const QuestionContainer: React.FC = () => {
         <FuckMarryKillQuestion question={currentQuestion as FMKQuestionType} />
       ) : (
         <div>Unknown question type</div>
+      )}
+
+      {answerSelected && responseText && (
+        <div className="mt-6 pt-4 border-t border-primary/20 animate-fade-in">
+          <div className="bg-secondary/30 p-4 rounded-md">
+            <p className="text-primary font-medium mb-2">Analysis:</p>
+            <p className="text-foreground/90">{responseText}</p>
+          </div>
+          
+          <div className="flex justify-end mt-4">
+            <Button 
+              onClick={nextQuestion}
+              className="flex items-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+            >
+              Next Question <ArrowRight size={16} />
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );
