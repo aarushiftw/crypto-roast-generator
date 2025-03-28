@@ -87,7 +87,7 @@ export interface UserResponse {
     protocol: string;
     action: ActionType;
   }[];
-  scores?: Record<TraitId, number>;
+  scores?: Partial<Record<TraitId, number>>;
 }
 
 export interface UserTraits {

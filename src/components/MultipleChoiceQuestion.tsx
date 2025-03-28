@@ -59,7 +59,7 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
                 ${answerSelected 
                   ? 'cursor-not-allowed opacity-70' 
                   : 'cursor-pointer hover:bg-primary/20 hover:border-primary/50'}
-                ${answerSelected === true && index === userResponse?.answerIndex
+                ${answerSelected && index === question.answers.findIndex((_, i) => i === index)
                   ? 'bg-[#B2F7FE] border-[#B2F7FE] text-black'
                   : 'bg-background border-border'}`}
             >

@@ -5,7 +5,8 @@ import {
   QuestionData, 
   FuckMarryKillQuestion,
   TraitId,
-  RoastResult
+  RoastResult,
+  ActionType
 } from '@/lib/types/questionnaire';
 import { questions, fmkQuestions } from '@/lib/data/questions';
 import { shuffleArray } from '@/lib/utils/helpers';
@@ -22,7 +23,7 @@ interface RoastContextType {
   setRoastResult: (result: RoastResult) => void;
   traitScores: Record<TraitId, number>;
   userFMKResponses: Map<string, Record<string, string>>;
-  addFMKResponse: (protocol: string, action: "fuck" | "marry" | "kill") => void;
+  addFMKResponse: (protocol: string, action: ActionType) => void;
   resetFMKResponses: () => void;
   isFinished: boolean;
   answerSelected: boolean;
@@ -86,19 +87,21 @@ export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
       // Update trait scores
       const newTraitScores = { ...traitScores };
       Object.entries(selectedAnswer.scores).forEach(([trait, score]) => {
-        newTraitScores[trait as TraitId] = (newTraitScores[trait as TraitId] || 0) + score;
+        if (trait in newTraitScores) {
+          newTraitScores[trait as TraitId] = (newTraitScores[trait as TraitId] || 0) + score;
+        }
       });
       
       setTraitScores(newTraitScores);
       
       // Include scores in the response
-      response.scores = { ...selectedAnswer.scores };
+      response.scores = selectedAnswer.scores as Record<TraitId, number>;
     }
     
     setUserResponses([...userResponses, response]);
   };
 
-  const addFMKResponse = (protocol: string, action: "fuck" | "marry" | "kill") => {
+  const addFMKResponse = (protocol: string, action: ActionType) => {
     if (!currentQuestion || currentQuestion.type !== 'fuck_marry_kill') return;
     
     const question = currentQuestion as FuckMarryKillQuestion;
@@ -120,7 +123,9 @@ export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
       const newTraitScores = { ...traitScores };
       
       Object.entries(implications).forEach(([trait, score]) => {
-        newTraitScores[trait as TraitId] = (newTraitScores[trait as TraitId] || 0) + score;
+        if (trait in newTraitScores) {
+          newTraitScores[trait as TraitId] = (newTraitScores[trait as TraitId] || 0) + score;
+        }
       });
       
       setTraitScores(newTraitScores);

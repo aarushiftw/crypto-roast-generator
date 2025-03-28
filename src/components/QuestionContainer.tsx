@@ -3,7 +3,7 @@ import React from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
 import FuckMarryKillQuestion from './FuckMarryKillQuestion';
-import { QuestionData } from '@/lib/types/questionnaire';
+import { QuestionData, FuckMarryKillQuestion as FMKQuestionType } from '@/lib/types/questionnaire';
 
 const QuestionContainer: React.FC = () => {
   const { currentQuestion, currentQuestionIndex, totalQuestions } = useRoast();
@@ -23,7 +23,7 @@ const QuestionContainer: React.FC = () => {
       {currentQuestion.type === 'multiple_choice' ? (
         <MultipleChoiceQuestion question={currentQuestion as QuestionData} />
       ) : currentQuestion.type === 'fuck_marry_kill' ? (
-        <FuckMarryKillQuestion question={currentQuestion} />
+        <FuckMarryKillQuestion question={currentQuestion as FMKQuestionType} />
       ) : (
         <div>Unknown question type</div>
       )}
