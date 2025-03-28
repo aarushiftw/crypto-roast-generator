@@ -56,7 +56,7 @@ const RoastResult: React.FC = () => {
     if (!roastResult) return;
     
     const tweetText = encodeURIComponent(
-      `I just got absolutely destroyed by the Crypto Roast Bot! I'm ${roastResult.percentageScore}% crypto degen and Level ${nftLevel} material. Come get roasted yourself: `
+      `I just got absolutely destroyed by the Crypto Roast Bot! I'm likely to mint a Level ${nftLevel} NFT. Come get roasted yourself: `
     );
     const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(window.location.href)}`;
     window.open(tweetUrl, '_blank');
@@ -99,7 +99,7 @@ const RoastResult: React.FC = () => {
             
             <div className="mt-6 pt-4 border-t border-primary/20">
               <p className="text-lg font-medium animate-fade-in">
-                You're {roastResult.percentageScore}% crypto degen. {
+                You're likely to mint a Level {nftLevel} NFT. {
                   roastResult.percentageScore > 70 
                     ? "Even BitConnect victims are looking at your trades thinking 'at least I'm not that guy.'" 
                     : "There's still hope for you... barely."
@@ -138,7 +138,7 @@ const RoastResult: React.FC = () => {
               className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
             >
               <Share size={18} />
-              Share my onchain pain
+              Share My Roast Report
             </Button>
           </div>
         )}

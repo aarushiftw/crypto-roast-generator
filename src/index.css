@@ -11,19 +11,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 235 35% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 187 100% 65%;
+    --primary: 187 80% 65%;
     --primary-foreground: 235 35% 8%;
     --secondary: 235 35% 15%;
     --secondary-foreground: 0 0% 98%;
     --muted: 235 35% 15%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 187 100% 65%;
+    --accent: 187 80% 65%;
     --accent-foreground: 235 35% 8%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 235 35% 20%;
     --input: 235 35% 20%;
-    --ring: 187 100% 65%;
+    --ring: 187 80% 65%;
     --radius: 0.5rem;
   }
 }
@@ -61,7 +61,7 @@
 
 .terminal-text {
   color: #31EBF0;
-  text-shadow: 0 0 10px rgba(49, 235, 240, 0.6);
+  text-shadow: 0 0 5px rgba(49, 235, 240, 0.4);
 }
 
 .animate-fade-in {
@@ -167,17 +167,17 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   bottom: 0;
   background-image: url('/lovable-uploads/8e1f9f5c-38be-41fa-bce4-b2d94010e3cd.png');
-  background-size: 300px;
-  background-position: center 80px;
+  background-size: 250px;
+  background-position: center 100px;
   background-repeat: no-repeat;
-  opacity: 0.15;
+  opacity: 0.1;
   z-index: -1;
 }
 
 .cyberpunk-border {
   position: relative;
-  border: 1px solid rgba(49, 235, 240, 0.3);
-  box-shadow: 0 0 15px rgba(49, 235, 240, 0.2);
+  border: 1px solid rgba(49, 235, 240, 0.2);
+  box-shadow: 0 0 10px rgba(49, 235, 240, 0.1);
 }
 
 .cyberpunk-border::after {
@@ -187,16 +187,16 @@ h1, h2, h3, h4, h5, h6 {
   left: -1px;
   right: -1px;
   bottom: -1px;
-  background: linear-gradient(90deg, transparent, rgba(49, 235, 240, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(49, 235, 240, 0.2), transparent);
   z-index: -1;
-  animation: borderGlow 3s linear infinite;
+  animation: borderGlow 4s linear infinite;
 }
 
 @keyframes borderGlow {
   0%, 100% {
-    opacity: 0.2;
+    opacity: 0.1;
   }
   50% {
-    opacity: 0.8;
+    opacity: 0.4;
   }
 }

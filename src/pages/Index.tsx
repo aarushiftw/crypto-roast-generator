@@ -17,7 +17,7 @@ const Index = () => {
           <RoastApp />
         </main>
         <footer className="py-4 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Brahma Network • All rights reserved</p>
+          <p>© 2025 Brahma.fi • All rights reserved</p>
         </footer>
       </div>
     </RoastProvider>

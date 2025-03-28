@@ -27,7 +27,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
       }
       
       setIsTyping(true);
-      await simulateTyping(text, setDisplayText, 15, 45);
+      await simulateTyping(text, setDisplayText, 30, 60);
       setIsTyping(false);
       
       if (onComplete) {
@@ -45,7 +45,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   return (
     <div className={`${className} font-mono`}>
       {displayText}
-      {isTyping && <span className="animate-pulse">▌</span>}
+      {isTyping && <span className="opacity-70">▌</span>}
     </div>
   );
 };
