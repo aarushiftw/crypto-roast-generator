@@ -1,17 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
-import TypewriterText from './TypewriterText';
-import { Button } from '@/components/ui/button';
 import { 
   getRandomRoastOpening, 
   getRandomRoastReaction, 
   getRandomMidRoastReaction,
   getRandomRoastClosing 
 } from '@/lib/utils/roastGenerator';
-import { Badge } from '@/lib/types/questionnaire';
 import { delay } from '@/lib/utils/helpers';
 import { Share } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const RoastResult: React.FC = () => {
   const { roastResult, restartQuiz } = useRoast();
@@ -114,7 +112,7 @@ const RoastResult: React.FC = () => {
             <p className="text-lg italic text-primary/90 mb-4">{roastClosing}</p>
             
             <p className="text-lg text-foreground/90 border-t border-primary/20 pt-4 mt-4">
-              You're Level {nftLevel} material based on your self-reported bullshit. Come 4/20, Brahma's onchain imprint NFT will expose the truth.
+              Come 4/20, Brahma's onchain imprint NFT will expose the truth.
             </p>
           </div>
         )}

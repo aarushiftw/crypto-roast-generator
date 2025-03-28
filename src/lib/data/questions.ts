@@ -1,4 +1,3 @@
-
 import { QuestionData, TraitsConfig, Classification, RoastFlow, FuckMarryKillQuestion } from "@/lib/types/questionnaire";
 
 export const traitsConfig: TraitsConfig = {
@@ -515,9 +514,9 @@ export const fmkQuestions: FuckMarryKillQuestion[] = [
     id: "fmk1",
     type: "fuck_marry_kill",
     variations: [
-      "Fuck, Marry, Kill - DeFi Edition:",
-      "Which protocol would you... you know:",
-      "Let's play Fuck, Marry, Kill with these protocols:"
+      "Fuck, Marry or Kill - DeFi Edition:",
+      "Fuck, Marry or Kill:",
+      "Fuck, Marry or Kill:"
     ],
     protocols: ["Aave V3", "Maker DAO", "Uniswap V3"],
     responsePatterns: {
@@ -586,9 +585,9 @@ export const fmkQuestions: FuckMarryKillQuestion[] = [
     id: "fmk2",
     type: "fuck_marry_kill",
     variations: [
-      "Fuck, Marry, Kill - Liquid Staking Edition:",
-      "Which of these staking protocols would you...",
-      "Let's get personal with these staking protocols:"
+      "Fuck, Marry or Kill - Liquid Staking Edition:",
+      "Fuck, Marry or Kill:",
+      "Fuck, Marry or Kill:"
     ],
     protocols: ["LIDO", "Rocket Pool", "EigenLayer"],
     responsePatterns: {

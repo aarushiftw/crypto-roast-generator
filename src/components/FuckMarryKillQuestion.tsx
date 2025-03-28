@@ -68,41 +68,43 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
   
   return (
     <div className="space-y-6 animate-fade-in">
-      {!answerSelected ? (
-        <div className="space-y-6">
-          <h2 className="text-xl md:text-2xl font-bold text-primary mb-4">
-            {questionText}
-          </h2>
-          
-          <div className="mt-6">
-            <h3 className="text-xl font-semibold mb-4 text-foreground/90">{currentProtocol}</h3>
-            
-            <div className="grid grid-cols-3 gap-3">
-              {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
-                <button
-                  key={action}
-                  onClick={() => handleAction(currentProtocol, action)}
-                  className="py-4 px-3 text-center rounded-md border hover:bg-primary/20 hover:border-primary/50 
-                    transition-all duration-300 uppercase font-medium bg-card/30 border-border"
-                >
-                  {action}
-                </button>
-              ))}
-            </div>
-          </div>
+      <h2 className="text-xl md:text-2xl font-bold text-primary mb-4">
+        {questionText.replace("Let's play Fuck, Marry, Kill with these protocols:", "Fuck, Marry or Kill").replace("Let's, play fuck marry or kill with these protocols", "Fuck, Marry or Kill")}
+      </h2>
+      
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold mb-4 text-foreground/90">{currentProtocol}</h3>
+        
+        <div className="grid grid-cols-3 gap-3">
+          {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
+            <button
+              key={action}
+              onClick={() => handleAction(currentProtocol, action)}
+              className={`py-4 px-3 text-center rounded-md border hover:bg-primary/20 hover:border-primary/50 
+                transition-all duration-300 uppercase font-medium bg-card/30 border-border
+                ${answerSelected && responses[currentProtocol] === action ? 'bg-primary/30 border-primary' : ''}`}
+              disabled={answerSelected}
+            >
+              {action}
+            </button>
+          ))}
         </div>
-      ) : (
-        <Card className="p-6 border-primary/30 animate-slide-up bg-card/80">
-          <h3 className="text-lg font-semibold mb-4 text-primary">Insight</h3>
-          <p className="text-lg text-primary/90 mb-6">{responseText}</p>
-          
-          <Button 
-            onClick={handleContinue} 
-            className="w-full mt-2 bg-primary/80 hover:bg-primary text-primary-foreground"
-          >
-            {currentProtocolIndex < question.protocols.length - 1 ? 'Next Protocol' : 'Next Question'}
-          </Button>
-        </Card>
+      </div>
+      
+      {answerSelected && (
+        <div className="mt-4 animate-fade-in">
+          <Card className="p-4 border-primary/30 bg-card/80">
+            <h3 className="text-lg font-semibold mb-2 text-primary">Insight</h3>
+            <p className="text-md text-primary/90 mb-4">{responseText}</p>
+            
+            <Button 
+              onClick={handleContinue} 
+              className="w-full mt-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+            >
+              {currentProtocolIndex < question.protocols.length - 1 ? 'Next Protocol' : 'Next Question'}
+            </Button>
+          </Card>
+        </div>
       )}
     </div>
   );

@@ -74,14 +74,56 @@ export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
     const shuffledFMKQuestions = shuffleArray([...fmkQuestions]);
     
     // Limit FMK questions to max 2
-    const limitedFMKQuestions = shuffledFMKQuestions.slice(0, 2);
+    const limitedFMKQuestions = shuffledFMKQuestions.slice(0, Math.min(2, shuffledFMKQuestions.length));
     
     // Calculate how many MC questions we need to get to 10 total
     const mcQuestionsNeeded = 10 - limitedFMKQuestions.length;
     const selectedMCQuestions = shuffledMCQuestions.slice(0, mcQuestionsNeeded);
     
-    // Combine and shuffle again for final order
-    const allSelectedQuestions = shuffleArray([...selectedMCQuestions, ...limitedFMKQuestions]);
+    // Combine but ensure FMK questions aren't back-to-back
+    let allSelectedQuestions: (QuestionData | FuckMarryKillQuestion)[] = [];
+    
+    // If we have 2 FMK questions, ensure they're not back-to-back by placing them at positions
+    // that are at least 2 questions apart
+    if (limitedFMKQuestions.length === 2) {
+      // Insert first FMK question at a random position in the first half
+      const firstPosition = Math.floor(Math.random() * (mcQuestionsNeeded / 2));
+      
+      // Insert second FMK question at a random position in the second half
+      const secondPosition = Math.floor(mcQuestionsNeeded / 2) + 2 + 
+                             Math.floor(Math.random() * ((mcQuestionsNeeded / 2) - 2));
+      
+      for (let i = 0; i < mcQuestionsNeeded; i++) {
+        if (i === firstPosition) {
+          allSelectedQuestions.push(limitedFMKQuestions[0]);
+        } else if (i === secondPosition && limitedFMKQuestions.length > 1) {
+          allSelectedQuestions.push(limitedFMKQuestions[1]);
+        }
+        
+        if (i < selectedMCQuestions.length) {
+          allSelectedQuestions.push(selectedMCQuestions[i]);
+        }
+      }
+    } else if (limitedFMKQuestions.length === 1) {
+      // If only one FMK question, place it randomly
+      const position = Math.floor(Math.random() * mcQuestionsNeeded);
+      
+      for (let i = 0; i < mcQuestionsNeeded; i++) {
+        if (i === position) {
+          allSelectedQuestions.push(limitedFMKQuestions[0]);
+        }
+        
+        if (i < selectedMCQuestions.length) {
+          allSelectedQuestions.push(selectedMCQuestions[i]);
+        }
+      }
+    } else {
+      // No FMK questions, just use all MC questions
+      allSelectedQuestions = [...selectedMCQuestions];
+    }
+    
+    // Ensure we have exactly 10 questions
+    allSelectedQuestions = allSelectedQuestions.slice(0, 10);
     
     setShuffledQuestions(allSelectedQuestions);
   }, []);
