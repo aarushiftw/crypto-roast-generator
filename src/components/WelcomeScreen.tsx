@@ -41,7 +41,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           className="text-md font-medium terminal-text text-center"
           onComplete={handleTypingComplete}
           delay={500}
-          typingSpeed={150}
+          typingSpeed={50}  // Increased typing speed (reduced delay between characters)
         />
         
         {showStartButton && (
