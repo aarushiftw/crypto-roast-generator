@@ -9,7 +9,9 @@ const QuestionContainer: React.FC = () => {
   const { currentQuestion, currentQuestionIndex, totalQuestions } = useRoast();
 
   if (!currentQuestion) {
-    return <div>Loading next question...</div>;
+    return <div className="p-6 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full">
+      <p className="text-center">Loading next question...</p>
+    </div>;
   }
 
   return (

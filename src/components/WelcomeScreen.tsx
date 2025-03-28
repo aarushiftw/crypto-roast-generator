@@ -15,6 +15,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
     setTimeout(() => setShowStartButton(true), 600);
   };
 
+  const handleClick = () => {
+    console.log("Button clicked - starting questionnaire");
+    onStart();
+  };
+
   return (
     <div className="p-6 bg-card rounded-lg shadow-lg border border-primary/20 max-w-2xl w-full text-center">
       <h1 className="text-3xl font-bold mb-8 gradient-text">CRYPTO ROAST BOT</h1>
@@ -29,7 +34,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         {showStartButton && (
           <div className="flex justify-center pt-4 animate-fade-in">
             <Button
-              onClick={onStart} 
+              onClick={handleClick} 
               size="lg"
               className="w-2/3"
             >
