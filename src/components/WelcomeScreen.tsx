@@ -22,8 +22,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
 
   return (
     <div className="p-8 bg-card/80 rounded-lg shadow-lg cyberpunk-border max-w-2xl w-full text-center">
-      <h1 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
-        Hope your gas fees covered emotional damage.
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 gradient-text leading-tight">
+        Hope Your Gas Fees Covered
+        <br />
+        Emotional Damage.
       </h1>
       
       <div className="space-y-6 px-4">
@@ -31,6 +33,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           text="Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. Everything you did onchain, will reveal what your ENS name desperately tries to rebrand." 
           className="text-md font-medium terminal-text text-center"
           onComplete={handleTypingComplete}
+          delay={500}
         />
         
         {showStartButton && (
