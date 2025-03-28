@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
-import TypewriterText from './TypewriterText';
 import { Button } from '@/components/ui/button';
 
 interface WelcomeScreenProps {
@@ -9,12 +8,8 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
-  const [showStartButton, setShowStartButton] = useState(false);
+  const [showStartButton, setShowStartButton] = useState(true);
   
-  const handleTypingComplete = () => {
-    setTimeout(() => setShowStartButton(true), 600);
-  };
-
   const handleClick = () => {
     console.log("Button clicked - starting questionnaire");
     onStart();
@@ -29,12 +24,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       </h1>
       
       <div className="space-y-6 px-4">
-        <TypewriterText 
-          text="Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. Everything you did onchain, will reveal what your ENS name desperately tries to rebrand." 
-          className="text-md font-medium terminal-text text-center"
-          onComplete={handleTypingComplete}
-          delay={500}
-        />
+        <p className="text-md font-medium terminal-text text-center">
+          Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. 
+          Everything you did onchain, will reveal what your ENS name desperately tries to rebrand.
+        </p>
         
         {showStartButton && (
           <div className="flex justify-center pt-6 animate-fade-in">
@@ -53,3 +46,4 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
 };
 
 export default WelcomeScreen;
+
