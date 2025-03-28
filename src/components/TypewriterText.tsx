@@ -7,13 +7,15 @@ interface TypewriterTextProps {
   className?: string;
   onComplete?: () => void;
   delay?: number;
+  typingSpeed?: number;
 }
 
 const TypewriterText: React.FC<TypewriterTextProps> = ({ 
   text, 
   className = '', 
   onComplete,
-  delay = 0
+  delay = 0,
+  typingSpeed = 30
 }) => {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -27,7 +29,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
       }
       
       setIsTyping(true);
-      await simulateTyping(text, setDisplayText, 30, 60);
+      await simulateTyping(text, setDisplayText, typingSpeed, typingSpeed * 2);
       setIsTyping(false);
       
       if (onComplete) {
@@ -40,7 +42,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [text, onComplete, delay]);
+  }, [text, onComplete, delay, typingSpeed]);
 
   return (
     <div className={`${className} font-mono`}>

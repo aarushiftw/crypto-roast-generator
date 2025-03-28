@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
+import TypewriterText from './TypewriterText';
 import { Button } from '@/components/ui/button';
 
 interface WelcomeScreenProps {
@@ -8,8 +9,18 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
-  const [showStartButton, setShowStartButton] = useState(true);
+  const [showStartButton, setShowStartButton] = useState(false);
+  const [typingKey, setTypingKey] = useState(0);
   
+  const handleTypingComplete = () => {
+    setTimeout(() => setShowStartButton(true), 600);
+    // Set up a timer to restart the typing effect after 10 seconds
+    setTimeout(() => {
+      setShowStartButton(false);
+      setTypingKey(prev => prev + 1);
+    }, 10000);
+  };
+
   const handleClick = () => {
     console.log("Button clicked - starting questionnaire");
     onStart();
@@ -24,10 +35,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       </h1>
       
       <div className="space-y-6 px-4">
-        <p className="text-md font-medium terminal-text text-center">
-          Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. 
-          Everything you did onchain, will reveal what your ENS name desperately tries to rebrand.
-        </p>
+        <TypewriterText 
+          key={typingKey}
+          text="Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. Everything you did onchain, will reveal what your ENS name desperately tries to rebrand." 
+          className="text-md font-medium terminal-text text-center"
+          onComplete={handleTypingComplete}
+          delay={500}
+          typingSpeed={150}
+        />
         
         {showStartButton && (
           <div className="flex justify-center pt-6 animate-fade-in">
@@ -46,4 +61,3 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
 };
 
 export default WelcomeScreen;
-
