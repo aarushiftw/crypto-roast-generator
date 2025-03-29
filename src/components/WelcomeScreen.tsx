@@ -9,7 +9,7 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
-  const [showStartButton, setShowStartButton] = useState(false);
+  const [showStartButton, setShowStartButton] = useState(true);
   
   const handleTypingComplete = () => {
     setTimeout(() => setShowStartButton(true), 600);
