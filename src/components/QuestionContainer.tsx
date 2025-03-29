@@ -4,6 +4,7 @@ import { useRoast } from '@/contexts/RoastContext';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
 import FuckMarryKillQuestion from './FuckMarryKillQuestion';
 import { QuestionData, FuckMarryKillQuestion as FMKQuestionType } from '@/lib/types/questionnaire';
+import { ArrowRight } from 'lucide-react';
 
 const QuestionContainer: React.FC = () => {
   const { 
@@ -41,11 +42,6 @@ const QuestionContainer: React.FC = () => {
             <span className="text-xs text-primary font-medium">
               Question {currentQuestionIndex + 1} of {totalQuestions}
             </span>
-            {answerSelected && (
-              <span className="text-xs text-primary font-medium animate-pulse">
-                Press button to continue →
-              </span>
-            )}
           </div>
 
           {currentQuestion.type === 'multiple_choice' ? (
@@ -59,10 +55,46 @@ const QuestionContainer: React.FC = () => {
       </div>
       
       <div className="tamagotchi-buttons">
-        <div className="button-left"></div>
-        <div className="button-middle" onClick={handleButtonClick}></div>
-        <div className="button-right"></div>
+        {/* Remove left and right button functionality */}
+        <div className="button-left invisible"></div>
+        
+        {/* Add indicator to the middle button when answer is selected */}
+        <div 
+          className={`button-middle relative ${answerSelected ? 'active-button' : 'inactive-button'}`} 
+          onClick={handleButtonClick}
+        >
+          {answerSelected && (
+            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-primary text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+              Click to continue <ArrowRight className="inline h-3 w-3 ml-1" />
+            </div>
+          )}
+        </div>
+        
+        <div className="button-right invisible"></div>
       </div>
+      
+      <style jsx>{`
+        .active-button {
+          box-shadow: 0 0 10px #38bdf8;
+          animation: pulse 1.5s infinite;
+        }
+        
+        .inactive-button {
+          opacity: 0.7;
+        }
+        
+        @keyframes pulse {
+          0% {
+            box-shadow: 0 0 5px #38bdf8;
+          }
+          50% {
+            box-shadow: 0 0 15px #38bdf8, 0 0 20px #38bdf8;
+          }
+          100% {
+            box-shadow: 0 0 5px #38bdf8;
+          }
+        }
+      `}</style>
     </div>
   );
 };
