@@ -63,10 +63,17 @@
   text-shadow: 0 0 5px rgba(49, 235, 240, 0.4);
 }
 
-/* Typewriter cursor animation */
+/* Typewriter cursor animation - improved */
 .typing-cursor {
   display: inline-block;
-  animation: cursor-blink 0.7s infinite;
+  width: 0.6em;
+  height: 1.2em;
+  background-color: currentColor;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: cursor-blink 0.8s ease-in-out infinite;
+  opacity: 0.8;
+  border-radius: 1px;
 }
 
 .animate-fade-in {
@@ -255,13 +262,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Cursor blink animation */
+/* Cursor blink animation - improved */
 @keyframes cursor-blink {
   0%, 100% {
-    opacity: 1;
+    opacity: 0.8;
   }
   50% {
-    opacity: 0;
+    opacity: 0.2;
   }
 }
 

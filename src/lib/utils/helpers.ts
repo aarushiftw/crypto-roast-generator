@@ -27,6 +27,7 @@ export function shuffleArray<T>(array: T[]): T[] {
 
 /**
  * Create a simulated typing effect
+ * Uses more consistent timing to prevent glitches
  */
 export async function simulateTyping(
   text: string,
@@ -35,11 +36,27 @@ export async function simulateTyping(
   maxDelay = 60
 ): Promise<void> {
   let currentText = '';
+  let isCancelled = false;
+  
+  // Create a cancellation token
+  const cancel = () => {
+    isCancelled = true;
+  };
+  
+  // More consistent timing with less variance
+  const baseDelay = (minDelay + maxDelay) / 2;
+  const variance = (maxDelay - minDelay) / 4;
   
   for (let i = 0; i < text.length; i++) {
+    if (isCancelled) break;
+    
     currentText += text[i];
     callback(currentText);
-    const typingDelay = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+    
+    // More consistent timing with smaller random variation
+    const typingDelay = Math.floor(Math.random() * variance * 2) + (baseDelay - variance);
     await delay(typingDelay);
   }
+  
+  return Promise.resolve();
 }
