@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
@@ -55,17 +54,15 @@ const QuestionContainer: React.FC = () => {
       </div>
       
       <div className="tamagotchi-buttons">
-        {/* Remove left and right button functionality */}
         <div className="button-left invisible"></div>
         
-        {/* New 3D skip-forward button */}
         <div 
-          className={`button-middle button-3d ${answerSelected ? 'button-3d-active' : 'button-3d-inactive'}`} 
+          className={`button-middle button-3d w-20 h-20 flex items-center justify-center ${answerSelected ? 'button-3d-active' : 'button-3d-inactive'}`} 
           onClick={handleButtonClick}
         >
-          <div className="button-3d-icon">
-            <SkipForward className={`h-7 w-7 text-white ${answerSelected ? 'animate-pulse-3d' : ''}`} />
-          </div>
+          <SkipForward 
+            className={`text-white w-10 h-10 ${answerSelected ? 'animate-pulse-3d' : ''}`} 
+          />
         </div>
         
         <div className="button-right invisible"></div>
