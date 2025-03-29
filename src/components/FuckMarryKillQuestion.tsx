@@ -87,26 +87,6 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
           {questionText.replace("Let's play Fuck, Marry, Kill with these protocols:", "Fuck, Marry or Kill").replace("Let's, play fuck marry or kill with these protocols", "Fuck, Marry or Kill")}
         </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
-            <div key={action} className="text-center">
-              <h3 className="uppercase font-bold text-primary mb-2">{action}</h3>
-              <div className="bg-secondary/30 h-16 rounded-md flex items-center justify-center">
-                {actionCounts[action] > 0 ? (
-                  <div className="font-medium text-lg">
-                    {Object.entries(responses)
-                      .filter(([_, a]) => a === action)
-                      .map(([p]) => p)
-                      .join(', ')}
-                  </div>
-                ) : (
-                  <div className="text-muted-foreground italic">Choose below</div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        
         <div className="space-y-4">
           {protocols.map((protocol) => (
             <Card key={protocol} className={`p-4 transition-all duration-300 ${responses[protocol] ? 'border-primary/50 bg-primary/5' : 'bg-card/50'}`}>
