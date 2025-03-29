@@ -316,25 +316,24 @@ h1, h2, h3, h4, h5, h6 {
 /* Tamagotchi Styling */
 .tamagotchi-container {
   position: relative;
-  border-radius: 42% 42% 50% 50% / 60% 60% 40% 40%;
+  border-radius: 24px;
   background-color: hsl(var(--primary));
-  padding: 60px 16px 80px;
+  padding: 42px 16px 64px;
   box-shadow: 
     0 10px 25px rgba(0, 0, 0, 0.3),
     inset 0 -8px 0 rgba(0, 0, 0, 0.2),
     inset 0 8px 0 rgba(255, 255, 255, 0.2);
-  max-width: 380px;
+  max-width: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  aspect-ratio: 3/4;
 }
 
 .tamagotchi-top-lights {
   position: absolute;
-  top: 28px;
-  width: 70%;
+  top: 12px;
+  width: 80%;
   display: flex;
   justify-content: space-between;
 }
@@ -371,12 +370,11 @@ h1, h2, h3, h4, h5, h6 {
   max-height: 70vh;
 }
 
-/* Adjust button positioning for the egg shape */
 .tamagotchi-buttons {
   position: absolute;
-  bottom: 30px;
+  bottom: 16px;
   display: flex;
-  gap: 36px;
+  gap: 24px;
 }
 
 .button-left, .button-middle, .button-right {
