@@ -792,34 +792,46 @@ export const classifications: Classification[] = [
 
 export const roastFlow: RoastFlow = {
   openings: [
-    "Scanning your wallet...",
-    "Analyzing your deplorable on-chain choices...",
-    "Inspecting your tragic transaction history...",
-    "Examining your questionable crypto decisions...",
-    "Looking at your on-chain activity (god help me)..."
-  ],
+      "Analyzing your deplorable onchain choices...",
+      "Inspecting your tragic roast history...",
+      "Examining your questionable onchain decisions...",
+      "Looking at your onchain activity (god help me)...",
+      "RIP the digital wasteland you call a wallet...",
+      "Calculating your poor life choices in real time..."
+    ],
   reactions: [
-    "Jesus Christ.",
-    "Oh, this is bad.",
-    "Wait, what?",
-    "Oh god no.",
-    "I wasn't prepared for this level of degeneracy.",
-    "This is worse than I expected.",
-    "I need a drink after seeing this.",
-    "Your portfolio should come with a trigger warning."
-  ],
+      "Oh, this is bad.",
+      "Wait, what?",
+      "Oh god no.",
+      "I wasn't prepared for this level of degeneracy.",
+      "This is worse than I expected.",
+      "I need a drink after seeing this.",
+      "Your portfolio should come with a trigger warning.",
+      "Do your loved ones know about these decisions?",
+      "This is financial self-harm.",
+      "You call this investing?",
+      "Your roast verdict reads like a cry for help."
+    ],
   midRoastReactions: [
-    "It gets worse, doesn't it?",
-    "I can't believe I'm seeing this.",
-    "Your transaction history should be studied by psychiatrists.",
-    "I'm simultaneously impressed and horrified.",
-    "This is why blockchain transparency is a curse."
-  ],
-  closings: [
-    "I'd wish you luck, but you'd probably convert it to some garbage token with \"safe\" in the name.",
-    "Come back after you've survived at least one 80% drawdown without crying.",
-    "Your seed phrase should be classified as a biohazard.",
-    "Your wallet is basically a case study in what not to do.",
-    "May your future losses be less catastrophic than your past ones."
-  ]
+      "It gets worse, doesn't it?",
+      "I can't believe I'm seeing this.",
+      "Your transaction history should be studied by psychiatrists.",
+      "I'm simultaneously impressed and horrified.",
+      "This is why onchain transparency is a curse.",
+      "Each transaction is more concerning than the last.",
+      "This would be funny if it wasn't so sad.",
+      "I've seen liquidated leverage traders with healthier portfolios.",
+      "This is beyond degen, this is financial masochism."
+    ],
+  closings:  [
+      "I'd wish you luck, but you'd probably convert it to some garbage token with \"safe\" in the name.",
+      "Come back after you've survived at least one 80% drawdown without crying.",
+      "Your seed phrase should be classified as a biohazard.",
+      "Your wallet may just be a case study in what not to do.",
+      "May your future losses be less catastrophic than your past ones.",
+      "I'd recommend therapy, but you'd probably spend that money on another NFT.",
+      "There's still time to delete your wallet and pretend this never happened.",
+      "Don't worry, someday your grandchildren will study your transactions as a cautionary tale.",
+      "The good news is rock bottom has a solid foundation. The bad news is you're still digging."
+    ]
 };
