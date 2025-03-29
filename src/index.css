@@ -312,3 +312,157 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.7;
   }
 }
+
+/* Tamagotchi Styling */
+.tamagotchi-container {
+  position: relative;
+  border-radius: 24px;
+  background-color: theme('colors.primary');
+  padding: 42px 16px 64px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.3),
+    inset 0 -8px 0 rgba(0, 0, 0, 0.2),
+    inset 0 8px 0 rgba(255, 255, 255, 0.2);
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tamagotchi-top-lights {
+  position: absolute;
+  top: 12px;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: theme('colors.destructive');
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+  animation: blink 3s infinite alternate;
+}
+
+.light-right {
+  animation-delay: 1.5s;
+}
+
+.tamagotchi-screen {
+  width: 100%;
+  background-color: theme('colors.background');
+  border-radius: 16px;
+  border: 8px solid theme('colors.secondary');
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
+  margin-bottom: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.screen-inner {
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.2);
+  min-height: 300px;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+.tamagotchi-buttons {
+  position: absolute;
+  bottom: 16px;
+  display: flex;
+  gap: 24px;
+}
+
+.button-left, .button-middle, .button-right {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: theme('colors.secondary');
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 3px 5px rgba(0, 0, 0, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.button-left:hover, .button-middle:hover, .button-right:hover {
+  transform: scale(1.1);
+}
+
+.button-left:active, .button-middle:active, .button-right:active {
+  transform: scale(0.95);
+}
+
+@keyframes blink {
+  0%, 80% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Add scan line effect for retro feel */
+.screen-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(32, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
+  animation: scanlines 1s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Add pixel noise for retro screen effect */
+.screen-inner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkIzMEIzOUIwNzkwODExRUFBMjFBQjgwNEYzQzcwMzdDIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkIzMEIzOUIxNzkwODExRUFBMjFBQjgwNEYzQzcwMzdDIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QjMwQjM5QUU3OTA4MTFFQUEyMUFCODA0RjNDNzAzN0MiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QjMwQjM5QUY3OTA4MTFFQUEyMUFCODA0RjNDNzAzN0MiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6Q7zbAAAAIaElEQVR42lZa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");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Override some existing styles for better Tamagotchi look */
+.tamagotchi-screen button.option-button {
+  background-color: rgba(49, 235, 240, 0.1);
+  border-color: rgba(49, 235, 240, 0.3);
+  transition: all 0.2s ease;
+}
+
+.tamagotchi-screen button.option-button:hover {
+  background-color: rgba(49, 235, 240, 0.2);
+  border-color: rgba(49, 235, 240, 0.5);
+}
+
+.tamagotchi-screen .gradient-text {
+  text-shadow: 0 0 8px rgba(49, 235, 240, 0.4);
+}

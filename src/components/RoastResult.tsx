@@ -8,7 +8,7 @@ import {
   getRandomRoastClosing 
 } from '@/lib/utils/roastGenerator';
 import { delay } from '@/lib/utils/helpers';
-import { Share, Bell } from 'lucide-react';
+import { Share, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TypewriterText from './TypewriterText';
 
@@ -72,90 +72,98 @@ const RoastResult: React.FC = () => {
   }
 
   return (
-    <div className="p-6 bg-card/80 rounded-lg shadow-lg cyberpunk-border max-w-2xl w-full relative overflow-hidden">
-      {/* Cyberpunk grid lines */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-grid-pattern opacity-10 z-0"></div>
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-primary/10 to-transparent opacity-30 z-0"></div>
+    <div className="tamagotchi-container max-w-2xl w-full">
+      <div className="tamagotchi-top-lights">
+        <div className="light light-left"></div>
+        <div className="light light-right"></div>
+      </div>
       
-      <div className="relative z-10 space-y-6">
-        <h2 className="text-2xl font-bold text-center gradient-text mb-6">
-          YOUR ONCHAIN VERDICT
-        </h2>
-        
-        {displayStage >= 1 && (
-          <div className="animate-fade-in">
-            <p className="text-lg text-primary/90">{roastOpening}</p>
-            <p className="text-lg italic text-foreground/80 mt-2">{roastReaction}</p>
-          </div>
-        )}
-        
-        {displayStage >= 2 && (
-          <div className="animate-fade-in">
-            <p className="text-lg italic text-foreground/80 mb-3">{midRoastReaction}</p>
-            <p className="text-xl font-bold terminal-text py-2">{roastResult.roastLine}</p>
-          </div>
-        )}
-        
-        {displayStage >= 3 && (
-          <div className="space-y-3">
-            {roastResult.specificRoasts.map((roast, index) => (
-              visibleSpecificRoasts.includes(index) && (
-                <p key={index} className="text-lg text-primary/90 animate-fade-in">
-                  &gt; {roast}
+      <div className="tamagotchi-screen">
+        <div className="screen-inner space-y-6">
+          <h2 className="text-2xl font-bold text-center gradient-text mb-6">
+            YOUR ONCHAIN VERDICT
+          </h2>
+          
+          {displayStage >= 1 && (
+            <div className="animate-fade-in">
+              <p className="text-lg text-primary/90">{roastOpening}</p>
+              <p className="text-lg italic text-foreground/80 mt-2">{roastReaction}</p>
+            </div>
+          )}
+          
+          {displayStage >= 2 && (
+            <div className="animate-fade-in">
+              <p className="text-lg italic text-foreground/80 mb-3">{midRoastReaction}</p>
+              <p className="text-xl font-bold terminal-text py-2">{roastResult.roastLine}</p>
+            </div>
+          )}
+          
+          {displayStage >= 3 && (
+            <div className="space-y-3">
+              {roastResult.specificRoasts.map((roast, index) => (
+                visibleSpecificRoasts.includes(index) && (
+                  <p key={index} className="text-lg text-primary/90 animate-fade-in">
+                    &gt; {roast}
+                  </p>
+                )
+              ))}
+            </div>
+          )}
+          
+          {displayStage >= 4 && (
+            <div className="animate-fade-in">
+              <div className="mt-6 pt-4 border-t border-primary/20">
+                <p className="text-lg font-medium">
+                  You're likely to mint a Level {nftLevel} NFT. {
+                    roastResult.percentageScore > 70 
+                      ? "Even BitConnect victims are looking at your trades thinking 'at least I'm not that guy.'" 
+                      : "There's still hope for you... barely."
+                  }
                 </p>
-              )
-            ))}
-          </div>
-        )}
-        
-        {displayStage >= 4 && (
-          <div className="animate-fade-in">
-            <div className="mt-6 pt-4 border-t border-primary/20">
-              <p className="text-lg font-medium">
-                You're likely to mint a Level {nftLevel} NFT. {
-                  roastResult.percentageScore > 70 
-                    ? "Even BitConnect victims are looking at your trades thinking 'at least I'm not that guy.'" 
-                    : "There's still hope for you... barely."
-                }
-              </p>
-            </div>
-            
-            <div>
-              <p className="text-lg italic text-primary/90 mb-4 mt-4">{roastClosing}</p>
-              
-              <p className="text-lg text-foreground/90 border-t border-primary/20 pt-4 mt-4">
-                Come 4/20, Brahma's onchain imprint NFT will expose the truth.
-              </p>
-            </div>
-            
-            <div className="space-y-4 pt-4">
-              <div className="flex justify-center">
-                <a 
-                  href="https://t.me/BrahmaRewards" 
-                  target="_blank"
-                  rel="noopener noreferrer" 
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground 
-                    rounded-md transition-colors duration-300 font-medium"
-                >
-                  <Bell size={18} className="text-primary" />
-                  Remind me to mint
-                </a>
               </div>
               
-              <Button 
-                onClick={handleShareOnTwitter}
-                className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
-              >
-                <Share size={18} />
-                Share My Roast Report
-              </Button>
+              <div>
+                <p className="text-lg italic text-primary/90 mb-4 mt-4">{roastClosing}</p>
+                
+                <p className="text-lg text-foreground/90 border-t border-primary/20 pt-4 mt-4">
+                  Come 4/20, Brahma's onchain imprint NFT will expose the truth.
+                </p>
+              </div>
+              
+              <div className="space-y-4 pt-4">
+                <div className="flex justify-center">
+                  <a 
+                    href="https://t.me/BrahmaRewards" 
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground 
+                      rounded-md transition-colors duration-300 font-medium"
+                  >
+                    <Bot size={18} className="text-primary" />
+                    Remind me to mint
+                  </a>
+                </div>
+                
+                <Button 
+                  onClick={handleShareOnTwitter}
+                  className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+                >
+                  <Share size={18} />
+                  Share My Roast Report
+                </Button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+      </div>
+      
+      <div className="tamagotchi-buttons">
+        <div className="button-left"></div>
+        <div className="button-middle"></div>
+        <div className="button-right"></div>
       </div>
     </div>
   );
 };
 
 export default RoastResult;
-
