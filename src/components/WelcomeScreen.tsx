@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import TypewriterText from './TypewriterText';
@@ -29,13 +28,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       
       <div className="tamagotchi-screen">
         <div className="screen-inner text-center flex flex-col justify-between py-6">
-          <h1 className="text-3xl font-bold text-white leading-tight mb-4">
+          <h1 className="text-3xl font-medium text-white leading-snug mb-2">
             Hope Your Gas Fees
-            <br />
             Covered Emotional Damage
           </h1>
           
-          <div className="px-4 my-4">
+          <div className="px-4 my-2">
             <TypewriterText 
               text="Answer honestly or lie, your real onchain imprint will reveal the truth. What your ENS name desperately tries to rebrand." 
               className="text-sm font-medium terminal-text text-center"
@@ -47,7 +45,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           </div>
           
           {showStartButton && (
-            <div className="mt-4 animate-fade-in">
+            <div className="mt-2 animate-fade-in">
               <Button
                 onClick={handleClick} 
                 size="sm"
