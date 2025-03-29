@@ -28,7 +28,7 @@ const QuestionContainer: React.FC = () => {
       </div>
       
       <div className="tamagotchi-screen">
-        <div className="screen-inner">
+        <div className="screen-inner pt-4 pb-2 px-4">
           <div className="flex justify-between items-center mb-3">
             <span className="text-xs text-primary font-medium">
               Question {currentQuestionIndex + 1} of {totalQuestions}

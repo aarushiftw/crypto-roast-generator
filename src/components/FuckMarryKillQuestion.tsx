@@ -6,6 +6,7 @@ import { getRandomItem } from '@/lib/utils/helpers';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface FuckMarryKillQuestionProps {
   question: FMKQuestionType;
@@ -80,80 +81,82 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
   };
   
   return (
-    <div className="space-y-6 animate-fade-in">
-      <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">
-        {questionText.replace("Let's play Fuck, Marry, Kill with these protocols:", "Fuck, Marry or Kill").replace("Let's, play fuck marry or kill with these protocols", "Fuck, Marry or Kill")}
-      </h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
-          <div key={action} className="text-center">
-            <h3 className="uppercase font-bold text-primary mb-2">{action}</h3>
-            <div className="bg-secondary/30 h-16 rounded-md flex items-center justify-center">
-              {actionCounts[action] > 0 ? (
-                <div className="font-medium text-lg">
-                  {Object.entries(responses)
-                    .filter(([_, a]) => a === action)
-                    .map(([p]) => p)
-                    .join(', ')}
-                </div>
-              ) : (
-                <div className="text-muted-foreground italic">Choose below</div>
-              )}
+    <ScrollArea className="h-[500px] animate-fade-in pr-4">
+      <div className="space-y-6">
+        <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">
+          {questionText.replace("Let's play Fuck, Marry, Kill with these protocols:", "Fuck, Marry or Kill").replace("Let's, play fuck marry or kill with these protocols", "Fuck, Marry or Kill")}
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
+            <div key={action} className="text-center">
+              <h3 className="uppercase font-bold text-primary mb-2">{action}</h3>
+              <div className="bg-secondary/30 h-16 rounded-md flex items-center justify-center">
+                {actionCounts[action] > 0 ? (
+                  <div className="font-medium text-lg">
+                    {Object.entries(responses)
+                      .filter(([_, a]) => a === action)
+                      .map(([p]) => p)
+                      .join(', ')}
+                  </div>
+                ) : (
+                  <div className="text-muted-foreground italic">Choose below</div>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      
-      <div className="space-y-4">
-        {protocols.map((protocol) => (
-          <Card key={protocol} className={`p-4 transition-all duration-300 ${responses[protocol] ? 'border-primary/50 bg-primary/5' : 'bg-card/50'}`}>
-            <div className="flex justify-between items-center mb-2">
-              <h3 className="text-lg font-semibold">{protocol}</h3>
-              {responses[protocol] && (
-                <Badge variant="outline" className="uppercase bg-primary/20 text-primary">{responses[protocol]}</Badge>
-              )}
-            </div>
-            
-            <div className="grid grid-cols-3 gap-2">
-              {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
-                <button
-                  key={`${protocol}-${action}`}
-                  onClick={() => handleAction(protocol, action)}
-                  className={`py-3 px-2 rounded-md border transition-all duration-300 uppercase font-medium
-                    ${isActionSelected(protocol, action) 
-                      ? 'bg-primary/30 border-primary text-foreground' 
-                      : responses[protocol] 
-                        ? 'opacity-40 cursor-not-allowed' 
-                        : 'bg-card/30 border-border hover:bg-primary/20 hover:border-primary/50'}`}
-                  disabled={responses[protocol] !== undefined}
-                >
-                  {action}
-                </button>
-              ))}
-            </div>
-          </Card>
-        ))}
-      </div>
-      
-      {currentFeedback && (
-        <Card className="p-4 border-primary/30 bg-card/80 animate-fade-in mt-4">
-          <h3 className="text-lg font-semibold mb-2 text-primary">Insight</h3>
-          <p className="text-md text-primary/90">{currentFeedback}</p>
-        </Card>
-      )}
-      
-      {answerSelected && (
-        <div className="mt-6 animate-fade-in">
-          <Button 
-            onClick={handleSubmit} 
-            className="w-full bg-primary/80 hover:bg-primary text-primary-foreground"
-          >
-            Continue to Next Question
-          </Button>
+          ))}
         </div>
-      )}
-    </div>
+        
+        <div className="space-y-4">
+          {protocols.map((protocol) => (
+            <Card key={protocol} className={`p-4 transition-all duration-300 ${responses[protocol] ? 'border-primary/50 bg-primary/5' : 'bg-card/50'}`}>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="text-lg font-semibold">{protocol}</h3>
+                {responses[protocol] && (
+                  <Badge variant="outline" className="uppercase bg-primary/20 text-primary">{responses[protocol]}</Badge>
+                )}
+              </div>
+              
+              <div className="grid grid-cols-3 gap-2">
+                {(['fuck', 'marry', 'kill'] as ActionType[]).map((action) => (
+                  <button
+                    key={`${protocol}-${action}`}
+                    onClick={() => handleAction(protocol, action)}
+                    className={`py-3 px-2 rounded-md border transition-all duration-300 uppercase font-medium
+                      ${isActionSelected(protocol, action) 
+                        ? 'bg-primary/30 border-primary text-foreground' 
+                        : responses[protocol] 
+                          ? 'opacity-40 cursor-not-allowed' 
+                          : 'bg-card/30 border-border hover:bg-primary/20 hover:border-primary/50'}`}
+                    disabled={responses[protocol] !== undefined}
+                  >
+                    {action}
+                  </button>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+        
+        {currentFeedback && (
+          <Card className="p-4 border-primary/30 bg-card/80 animate-fade-in mt-4">
+            <h3 className="text-lg font-semibold mb-2 text-primary">Insight</h3>
+            <p className="text-md text-primary/90">{currentFeedback}</p>
+          </Card>
+        )}
+        
+        {answerSelected && (
+          <div className="mt-6 mb-6 animate-fade-in">
+            <Button 
+              onClick={handleSubmit} 
+              className="w-full bg-primary/80 hover:bg-primary text-primary-foreground"
+            >
+              Continue to Next Question
+            </Button>
+          </div>
+        )}
+      </div>
+    </ScrollArea>
   );
 };
 
