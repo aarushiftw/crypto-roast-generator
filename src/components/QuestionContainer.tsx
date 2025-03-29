@@ -60,7 +60,7 @@ const QuestionContainer: React.FC = () => {
         
         {/* Add indicator to the middle button when answer is selected */}
         <div 
-          className={`button-middle relative ${answerSelected ? 'active-button' : 'inactive-button'}`} 
+          className={`button-middle relative ${answerSelected ? 'tamagotchi-active-button' : 'tamagotchi-inactive-button'}`} 
           onClick={handleButtonClick}
         >
           {answerSelected && (
@@ -72,29 +72,6 @@ const QuestionContainer: React.FC = () => {
         
         <div className="button-right invisible"></div>
       </div>
-      
-      <style jsx>{`
-        .active-button {
-          box-shadow: 0 0 10px #38bdf8;
-          animation: pulse 1.5s infinite;
-        }
-        
-        .inactive-button {
-          opacity: 0.7;
-        }
-        
-        @keyframes pulse {
-          0% {
-            box-shadow: 0 0 5px #38bdf8;
-          }
-          50% {
-            box-shadow: 0 0 15px #38bdf8, 0 0 20px #38bdf8;
-          }
-          100% {
-            box-shadow: 0 0 5px #38bdf8;
-          }
-        }
-      `}</style>
     </div>
   );
 };
