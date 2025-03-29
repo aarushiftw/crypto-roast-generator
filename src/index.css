@@ -191,6 +191,21 @@ h1, h2, h3, h4, h5, h6 {
   z-index: -1;
 }
 
+.cyber-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(to right, rgba(155, 135, 245, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(155, 135, 245, 0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .cyberpunk-border {
   position: relative;
   border: 1px solid rgba(49, 235, 240, 0.2);
@@ -256,13 +271,12 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 100vh;
   background-image: 
-    linear-gradient(to right, rgba(49, 235, 240, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(49, 235, 240, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.3;
-  z-index: 0;
+    linear-gradient(to right, rgba(155, 135, 245, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(155, 135, 245, 0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
+  z-index: -1;
   pointer-events: none;
   overflow: hidden;
 }
@@ -277,7 +291,7 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(
     to right, 
     transparent, 
-    rgba(49, 235, 240, 0.5), 
+    rgba(155, 135, 245, 0.7), 
     transparent
   );
   animation: neon-pulse 3s ease-in-out infinite;
