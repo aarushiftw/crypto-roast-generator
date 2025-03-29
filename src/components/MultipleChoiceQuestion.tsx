@@ -43,42 +43,39 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">
-        {questionText}
-      </h2>
-      
       {!answerSelected ? (
-        <div className="grid grid-cols-1 gap-3 mt-4">
-          {question.answers.map((answer, index) => (
-            <button
-              key={index}
-              onClick={() => handleSelectAnswer(index)}
-              className="py-4 px-5 text-left rounded-md border transition-colors duration-300
-                hover:bg-primary/20 hover:border-primary/50 hover:translate-x-1
-                bg-card/30 border-border"
-            >
-              {answer.text}
-            </button>
-          ))}
+        <div className="space-y-6">
+          <h2 className="text-xl md:text-2xl font-bold text-primary mb-6">
+            {questionText}
+          </h2>
+          
+          <div className="grid grid-cols-1 gap-3 mt-6">
+            {question.answers.map((answer, index) => (
+              <button
+                key={index}
+                onClick={() => handleSelectAnswer(index)}
+                className="py-4 px-5 text-left rounded-md border transition-colors duration-300
+                  hover:bg-primary/20 hover:border-primary/50 hover:translate-x-1
+                  bg-card/30 border-border"
+              >
+                {answer.text}
+              </button>
+            ))}
+          </div>
         </div>
       ) : (
-        <div className="space-y-4">
-          <Card className="p-6 border-primary/30 animate-slide-up bg-card/80">
-            <h3 className="text-lg font-semibold mb-4 text-primary">Insight</h3>
-            <p className="text-lg text-primary/90 mb-4">{responseText}</p>
-            
-            <Button 
-              onClick={handleContinue} 
-              className="w-full mt-2 bg-primary/80 hover:bg-primary text-primary-foreground"
-            >
-              Next Question
-            </Button>
-          </Card>
-        </div>
+        <Card className="p-6 border-primary/30 animate-slide-up bg-card/80">
+          <h3 className="text-lg font-semibold mb-4 text-primary">Insight</h3>
+          <p className="text-lg text-primary/90 mb-6">{responseText}</p>
+          
+          <Button 
+            onClick={handleContinue} 
+            className="w-full mt-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+          >
+            Next Question
+          </Button>
+        </Card>
       )}
-      
-      {/* Neon grid lines */}
-      <div className="absolute inset-x-0 bottom-0 h-20 neon-grid z-0"></div>
     </div>
   );
 };
