@@ -8,7 +8,7 @@ import {
   getRandomRoastClosing 
 } from '@/lib/utils/roastGenerator';
 import { delay } from '@/lib/utils/helpers';
-import { Share, Bot } from 'lucide-react';
+import { Share, Bot, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TypewriterText from './TypewriterText';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -18,13 +18,22 @@ const RoastResult: React.FC = () => {
   const [displayStage, setDisplayStage] = useState(0);
   const [fullRoastComplete, setFullRoastComplete] = useState(false);
   const [nftLevel, setNftLevel] = useState(1);
-  // Limit the number of visible specific roasts to prevent overflow
   const [visibleSpecificRoasts, setVisibleSpecificRoasts] = useState<number[]>([]);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
   const roastOpening = getRandomRoastOpening();
   const roastReaction = getRandomRoastReaction();
   const midRoastReaction = getRandomMidRoastReaction();
   const roastClosing = getRandomRoastClosing();
+
+  // NFT level descriptions based on specific requirements
+  const nftLevelDescriptions = [
+    "", // No level 0
+    "Crypto Curious: Just starting your journey", 
+    "Crypto Enthusiast: Making progress but still learning",
+    "Crypto Degenerate: Deep in the rabbit hole",
+    "Crypto Veteran: Experienced but with questionable choices"
+  ];
 
   useEffect(() => {
     const advanceStage = async () => {
@@ -42,13 +51,10 @@ const RoastResult: React.FC = () => {
       setDisplayStage(2);
       await delay(1500);
       
-      // After main roast, show specific roasts one by one (limit to 2 roasts)
+      // After main roast, show specific roasts one by one (all of them)
       setDisplayStage(3);
       
-      // Only show up to 2 specific roasts to prevent overflow
-      const roastsToShow = roastResult.specificRoasts.slice(0, 2);
-      
-      for (let i = 0; i < roastsToShow.length; i++) {
+      for (let i = 0; i < roastResult.specificRoasts.length; i++) {
         await delay(1500);
         setVisibleSpecificRoasts(prev => [...prev, i]);
       }
@@ -57,6 +63,11 @@ const RoastResult: React.FC = () => {
       await delay(1500);
       setDisplayStage(4);
       setFullRoastComplete(true);
+      
+      // Hide scroll indicator after a delay
+      setTimeout(() => {
+        setShowScrollIndicator(false);
+      }, 5000);
     };
     
     advanceStage();
@@ -66,7 +77,7 @@ const RoastResult: React.FC = () => {
     if (!roastResult) return;
     
     const tweetText = encodeURIComponent(
-      `I just got absolutely destroyed by the Crypto Roast Bot! I'm likely to mint a Level ${nftLevel} NFT. Come get roasted yourself: `
+      `I just got absolutely destroyed by the Crypto Roast Bot! I'm likely to mint a Level ${nftLevel} NFT (${nftLevelDescriptions[nftLevel]}). Come get roasted yourself: `
     );
     const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(window.location.href)}`;
     window.open(tweetUrl, '_blank');
@@ -85,28 +96,36 @@ const RoastResult: React.FC = () => {
       
       <div className="tamagotchi-screen">
         <ScrollArea className="h-[500px] w-full">
-          <div className="screen-inner space-y-4 p-4">
-            <h2 className="text-xl font-bold text-center gradient-text mb-3">
+          <div className="screen-inner space-y-6 p-6">
+            <h2 className="text-xl font-bold text-center gradient-text mb-4">
               YOUR ONCHAIN VERDICT
             </h2>
+            
+            {showScrollIndicator && (
+              <div className="absolute bottom-4 right-4 animate-bounce text-primary/70">
+                <ArrowDown size={20} />
+              </div>
+            )}
             
             {displayStage >= 1 && (
               <div className="animate-fade-in">
                 <p className="text-primary/90">{roastOpening}</p>
-                <p className="italic text-foreground/80 mt-1">{roastReaction}</p>
+                <p className="italic text-foreground/80 mt-2">{roastReaction}</p>
               </div>
             )}
             
             {displayStage >= 2 && (
-              <div className="animate-fade-in">
-                <p className="italic text-foreground/80 mb-2">{midRoastReaction}</p>
-                <p className="font-bold terminal-text py-1">{roastResult.roastLine}</p>
+              <div className="animate-fade-in mt-4">
+                <p className="italic text-foreground/80 mb-3">{midRoastReaction}</p>
+                <p className="font-bold terminal-text py-2 px-2 border border-primary/30 rounded-md bg-background/50">
+                  {roastResult.roastLine}
+                </p>
               </div>
             )}
             
             {displayStage >= 3 && (
-              <div className="space-y-2">
-                {roastResult.specificRoasts.slice(0, 2).map((roast, index) => (
+              <div className="space-y-3 mt-4">
+                {roastResult.specificRoasts.map((roast, index) => (
                   visibleSpecificRoasts.includes(index) && (
                     <p key={index} className="text-primary/90 animate-fade-in">
                       &gt; {roast}
@@ -117,26 +136,27 @@ const RoastResult: React.FC = () => {
             )}
             
             {displayStage >= 4 && (
-              <div className="animate-fade-in">
-                <div className="mt-3 pt-2 border-t border-primary/20">
-                  <p className="font-medium">
-                    Level {nftLevel} NFT {
-                      roastResult.percentageScore > 70 
-                        ? "Even BitConnect victims look better" 
-                        : "There's still hope... barely"
-                    }
+              <div className="animate-fade-in mt-6 space-y-4">
+                <div className="pt-3 border-t border-primary/20">
+                  <p className="font-medium text-lg">
+                    Level {nftLevel} NFT: {nftLevelDescriptions[nftLevel]}
+                  </p>
+                  <p className="mt-2 text-foreground/80">
+                    {roastResult.percentageScore > 70 
+                      ? "Even BitConnect victims look better" 
+                      : "There's still hope... barely"}
                   </p>
                 </div>
                 
-                <div>
-                  <p className="italic text-primary/90 mb-2 mt-2">{roastClosing}</p>
+                <div className="mt-4">
+                  <p className="italic text-primary/90 mb-3">{roastClosing}</p>
                   
-                  <p className="text-foreground/90 border-t border-primary/20 pt-2 mt-2">
+                  <p className="text-foreground/90 border-t border-primary/20 pt-3 mt-3">
                     4/20: Brahma's NFT will expose the truth
                   </p>
                 </div>
                 
-                <div className="space-y-3 pt-2 pb-4">
+                <div className="space-y-3 pt-3 pb-6">
                   <div className="flex justify-center">
                     <a 
                       href="https://t.me/BrahmaRewards" 
@@ -152,7 +172,7 @@ const RoastResult: React.FC = () => {
                   
                   <Button 
                     onClick={handleShareOnTwitter}
-                    className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground text-sm py-1"
+                    className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground text-sm py-2"
                     size="sm"
                   >
                     <Share size={16} />
@@ -167,7 +187,11 @@ const RoastResult: React.FC = () => {
       
       <div className="tamagotchi-buttons">
         <div className="button-left"></div>
-        <div className="button-middle"></div>
+        <div 
+          className="button-middle" 
+          onClick={restartQuiz}
+          title="Start a new roast"
+        ></div>
         <div className="button-right"></div>
       </div>
     </div>

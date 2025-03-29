@@ -9,8 +9,16 @@ const QuestionContainer: React.FC = () => {
   const { 
     currentQuestion, 
     currentQuestionIndex, 
-    totalQuestions
+    totalQuestions,
+    nextQuestion,
+    answerSelected
   } = useRoast();
+
+  const handleButtonClick = () => {
+    if (answerSelected) {
+      nextQuestion();
+    }
+  };
 
   if (!currentQuestion) {
     return <div className="tamagotchi-container">
@@ -33,6 +41,11 @@ const QuestionContainer: React.FC = () => {
             <span className="text-xs text-primary font-medium">
               Question {currentQuestionIndex + 1} of {totalQuestions}
             </span>
+            {answerSelected && (
+              <span className="text-xs text-primary font-medium animate-pulse">
+                Press button to continue →
+              </span>
+            )}
           </div>
 
           {currentQuestion.type === 'multiple_choice' ? (
@@ -47,7 +60,7 @@ const QuestionContainer: React.FC = () => {
       
       <div className="tamagotchi-buttons">
         <div className="button-left"></div>
-        <div className="button-middle"></div>
+        <div className="button-middle" onClick={handleButtonClick}></div>
         <div className="button-right"></div>
       </div>
     </div>
