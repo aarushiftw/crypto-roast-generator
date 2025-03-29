@@ -6,8 +6,8 @@ const Header: React.FC = () => {
     <header className="py-3 px-6 w-full backdrop-blur-sm">
       <div className="container mx-auto flex justify-center items-center">
         <img 
-          src="/lovable-uploads/8e1f9f5c-38be-41fa-bce4-b2d94010e3cd.png" 
-          alt="Robot Face Logo" 
+          src="/lovable-uploads/a3ef07be-8fc5-44c1-941a-afe3858bb8bd.png" 
+          alt="Brahma Mint Logo" 
           className="h-12 md:h-16 mb-1"
         />
       </div>
