@@ -58,14 +58,14 @@ const QuestionContainer: React.FC = () => {
         {/* Remove left and right button functionality */}
         <div className="button-left invisible"></div>
         
-        {/* Add skip-forward icon to middle button when answer is selected and make it larger */}
+        {/* New 3D skip-forward button */}
         <div 
-          className={`button-middle relative ${answerSelected ? 'tamagotchi-active-button' : 'tamagotchi-inactive-button'}`} 
+          className={`button-middle button-3d ${answerSelected ? 'button-3d-active' : 'button-3d-inactive'}`} 
           onClick={handleButtonClick}
         >
-          {answerSelected && (
-            <SkipForward className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-7 w-7 text-primary" />
-          )}
+          <div className="button-3d-icon">
+            <SkipForward className={`h-7 w-7 text-white ${answerSelected ? 'animate-pulse-3d' : ''}`} />
+          </div>
         </div>
         
         <div className="button-right invisible"></div>

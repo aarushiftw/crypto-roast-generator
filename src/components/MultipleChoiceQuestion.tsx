@@ -58,7 +58,7 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
         {/* Show insight at the top when an answer is selected */}
         {answerSelected && selectedAnswerIndex !== -1 && (
           <div ref={insightRef} className="sticky top-0 z-10 mb-4">
-            <Card className="p-4 border-primary/30 animate-slide-up bg-card/80">
+            <Card className="p-4 border-primary/30 animate-slide-up bg-card/80 backdrop-blur-sm">
               <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
               <p className="text-sm text-primary/90">{responseText}</p>
             </Card>
