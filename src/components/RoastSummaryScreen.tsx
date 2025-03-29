@@ -13,31 +13,48 @@ const RoastSummaryScreen: React.FC = () => {
   useEffect(() => {
     // Create a smoother loading experience with progressive steps
     const generateResult = async () => {
-      // Start the loading progress
-      const progressInterval = setInterval(() => {
-        setLoadingProgress(prev => {
-          const newProgress = prev + Math.random() * 15;
-          return newProgress >= 90 ? 90 : newProgress; // Cap at 90% until actually complete
-        });
-      }, 300);
+      // Start with initial progress
+      setLoadingProgress(5);
       
-      // Generate the roast result - but explicitly avoid wallet scanning references
+      // Create a smoother progressive loading animation
+      const totalSteps = 20;
+      const maxProgressBeforeCompletion = 95;
+      const baseDelay = 150; // ms
+      
+      // Create an array of increasing progress points, with some randomness
+      const progressPoints = Array.from({ length: totalSteps }, (_, i) => {
+        const baseProgress = (i + 1) * (maxProgressBeforeCompletion / totalSteps);
+        // Add some small randomness to make it look more natural
+        const randomness = Math.random() * 3 - 1.5; // -1.5 to +1.5
+        return Math.min(maxProgressBeforeCompletion, baseProgress + randomness);
+      });
+      
+      // Process each progress point with a delay
+      for (const progress of progressPoints) {
+        await new Promise(resolve => setTimeout(resolve, baseDelay + Math.random() * 50));
+        setLoadingProgress(progress);
+      }
+      
+      // Generate the roast result - without wallet scanning references
       const result = generateRoastResult(userResponses, traitScores);
       
-      // Add a minimum loading time to prevent flashing
-      await new Promise(resolve => setTimeout(resolve, 2500));
+      // Ensure minimum loading time for UX
+      await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Finish the loading progress
-      clearInterval(progressInterval);
-      setLoadingProgress(100);
+      // Set to almost complete
+      setLoadingProgress(98);
       
       // Update the context with the result
       setRoastResult(result);
       
+      // Finish loading
+      await new Promise(resolve => setTimeout(resolve, 300));
+      setLoadingProgress(100);
+      
       // Add a brief delay after reaching 100% before showing results
       setTimeout(() => {
         setIsLoading(false);
-      }, 500);
+      }, 400);
     };
     
     generateResult();

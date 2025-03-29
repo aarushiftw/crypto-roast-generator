@@ -5,7 +5,8 @@ import {
   getRandomRoastOpening, 
   getRandomRoastReaction, 
   getRandomMidRoastReaction,
-  getRandomRoastClosing 
+  getRandomRoastClosing,
+  getRandomTraitDescriptor
 } from '@/lib/utils/roastGenerator';
 import { delay } from '@/lib/utils/helpers';
 import { Share, Bot, ArrowDown } from 'lucide-react';
@@ -20,6 +21,15 @@ const RoastResult: React.FC = () => {
   const [nftLevel, setNftLevel] = useState(1);
   const [visibleSpecificRoasts, setVisibleSpecificRoasts] = useState<number[]>([]);
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [traitDescriptors, setTraitDescriptors] = useState<{
+    risk: string;
+    portfolio: string;
+    technical: string;
+  }>({
+    risk: '',
+    portfolio: '',
+    technical: ''
+  });
 
   const roastOpening = getRandomRoastOpening();
   const roastReaction = getRandomRoastReaction();
@@ -42,6 +52,13 @@ const RoastResult: React.FC = () => {
       // Calculate NFT level (1-4) based on percentage score
       const level = Math.min(4, Math.max(1, Math.ceil(roastResult.percentageScore / 25)));
       setNftLevel(level);
+      
+      // Generate trait descriptors
+      setTraitDescriptors({
+        risk: getRandomTraitDescriptor('risk-taking'),
+        portfolio: getRandomTraitDescriptor('portfolio-management'),
+        technical: getRandomTraitDescriptor('technical-skills')
+      });
       
       // Display stages sequentially with 1.5-second gaps
       setDisplayStage(1);
@@ -144,6 +161,14 @@ const RoastResult: React.FC = () => {
                   <p className="mt-2 text-foreground/80">
                     You're likely to mint a <span className="text-primary">Level {nftLevel} NFT</span> when Brahma's drop happens: {nftLevelDescriptions[nftLevel]}
                   </p>
+                </div>
+                
+                {/* Trait descriptors section */}
+                <div className="mt-4 space-y-2 bg-primary/5 p-3 rounded-md">
+                  <p className="text-sm text-primary/80 font-medium">Your Trait Analysis:</p>
+                  <p className="text-sm">• Risk-taking: <span className="italic text-foreground/80">{traitDescriptors.risk}</span></p>
+                  <p className="text-sm">• Portfolio management: <span className="italic text-foreground/80">{traitDescriptors.portfolio}</span></p>
+                  <p className="text-sm">• Technical skills: <span className="italic text-foreground/80">{traitDescriptors.technical}</span></p>
                 </div>
                 
                 <div className="mt-4">

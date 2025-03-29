@@ -1,4 +1,3 @@
-
 import { QuestionData, TraitsConfig, Classification, RoastFlow, FuckMarryKillQuestion } from "@/lib/types/questionnaire";
 
 export const traitsConfig: TraitsConfig = {
@@ -833,5 +832,31 @@ export const roastFlow: RoastFlow = {
       "There's still time to delete your wallet and pretend this never happened.",
       "Don't worry, someday your grandchildren will study your transactions as a cautionary tale.",
       "The good news is rock bottom has a solid foundation. The bad news is you're still digging."
+    ],
+  traitDescriptors: {
+    'risk-taking': [
+      "considers a 2x leverage 'conservative'",
+      "thinks diversification means owning multiple dog coins",
+      "defines risk management as 'having multiple wallets to spread the pain'",
+      "believes stop-losses are for cowards",
+      "calls liquidation 'an adrenaline rush'",
+      "considers 'all-in' a reasonable position size"
+    ],
+    'portfolio-management': [
+      "couldn't beat a dartboard in returns",
+      "calls 'buying high, selling low' a strategy",
+      "thinks portfolio rebalancing means adding more to whatever's down 90%",
+      "diversifies by having multiple wallets of the same shitcoin",
+      "measures performance in 'how many zeros I've lost'",
+      "considers unrealized losses 'just temporary'"
+    ],
+    'technical-skills': [
+      "sent tokens to the wrong address more times than they've had hot meals",
+      "considers copying and pasting addresses a technical achievement",
+      "thinks smart contract auditing means 'it looked legit'",
+      "believes hardware wallets are 'too complicated'",
+      "calls themselves Web3 native but can't explain MEV",
+      "thinks 'gas optimization' means waiting until 3AM to transact"
     ]
+  }
 };

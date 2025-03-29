@@ -2,6 +2,7 @@
 export type TraitId = 'experience' | 'portfolio' | 'activity' | 'risk' | 'technical' | 'defi';
 export type ActionType = 'fuck' | 'marry' | 'kill';
 export type QuestionType = 'multiple_choice' | 'fuck_marry_kill';
+export type TraitDescriptorType = 'risk-taking' | 'portfolio-management' | 'technical-skills';
 
 export interface UserTraits {
   experience?: number;
@@ -87,6 +88,11 @@ export interface RoastFlow {
   reactions: string[];
   midRoastReactions: string[];
   closings: string[];
+  traitDescriptors: {
+    'risk-taking': string[];
+    'portfolio-management': string[];
+    'technical-skills': string[];
+  };
 }
 
 export interface UserResponse {

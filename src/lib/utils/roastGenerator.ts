@@ -1,3 +1,4 @@
+
 import { roastFlow, classifications, traitsConfig } from "@/lib/data/questions";
 import { 
   UserTraits, 
@@ -5,7 +6,8 @@ import {
   RoastResult, 
   UserResponse,
   TraitId,
-  Badge
+  Badge,
+  TraitDescriptorType
 } from "@/lib/types/questionnaire";
 import { getRandomItem } from "./helpers";
 
@@ -146,4 +148,8 @@ export function getRandomMidRoastReaction(): string {
 
 export function getRandomRoastClosing(): string {
   return getRandomItem(roastFlow.closings);
+}
+
+export function getRandomTraitDescriptor(traitType: TraitDescriptorType): string {
+  return getRandomItem(roastFlow.traitDescriptors[traitType]);
 }
