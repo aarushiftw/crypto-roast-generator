@@ -34,14 +34,14 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
       questionId: question.id,
       answerIndex: index,
     });
-  };
 
-  // Scroll to insight when it appears
-  useEffect(() => {
-    if (answerSelected && insightRef.current) {
-      insightRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  }, [answerSelected]);
+    // Scroll to insight with a slight delay to ensure it renders first
+    setTimeout(() => {
+      if (insightRef.current) {
+        insightRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
 
   const questionText = getRandomItem(question.variations);
 
@@ -73,7 +73,7 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
                 {/* Display insight card immediately after the selected answer */}
                 {answerSelected && 
                  index === question.answers.findIndex((_, i) => i === question.answers.findIndex((_, i) => responseText === getRandomItem(question.answers[i].responses))) && (
-                  <div ref={insightRef}>
+                  <div ref={insightRef} className="sticky top-0 z-10">
                     <Card className="p-4 border-primary/30 animate-slide-up bg-card/80">
                       <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
                       <p className="text-sm text-primary/90">{responseText}</p>

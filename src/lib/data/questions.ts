@@ -1,3 +1,4 @@
+
 import { QuestionData, TraitsConfig, Classification, RoastFlow, FuckMarryKillQuestion } from "@/lib/types/questionnaire";
 
 export const traitsConfig: TraitsConfig = {
@@ -442,7 +443,7 @@ export const questions: QuestionData[] = [
     variations: [
       "Which of these exploited protocols were you unfortunate enough to use?",
       "Select all protocols you were in BEFORE they got hacked:",
-      "Which of these hacks did you experience firsthand?"
+      "Which of these hacks did you experience firsthand like the complete degen you are?"
     ],
     answers: [
       {
@@ -462,7 +463,7 @@ export const questions: QuestionData[] = [
         responses: [
           "Euler? You really thought you were sophisticated, huh?",
           "Ah, a fellow Euler victim. Let's cry together.",
-          "Did you at least get the recovery airdrop?"
+          "Did you at least get the recovery airdrop or are you that rekt?"
         ],
         scores: {
           risk: 4,
@@ -474,7 +475,7 @@ export const questions: QuestionData[] = [
         responses: [
           "Platypus Finance? Your due diligence is showing.",
           "Named after a weird animal. Should've been a red flag.",
-          "Let me guess, for the high APYs?"
+          "Let me guess, for the high APYs? How'd that work out, genius?"
         ],
         scores: {
           risk: 4,
@@ -498,7 +499,7 @@ export const questions: QuestionData[] = [
         responses: [
           "You're not unlucky, you're careless.",
           "Tell me you don't read audit reports without telling me.",
-          "Achievement unlocked: Serial Victim."
+          "Achievement unlocked: Serial Victim. What's your strategy, blindly aping into everything?"
         ],
         scores: {
           risk: 5,
