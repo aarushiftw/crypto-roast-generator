@@ -93,6 +93,13 @@ export interface RoastFlow {
     'portfolio-management': string[];
     'technical-skills': string[];
   };
+  randomPhrases?: {
+    traitDescriptors: {
+      'risk-taking': string[];
+      'portfolio-management': string[];
+      'technical-skills': string[];
+    };
+  };
 }
 
 export interface UserResponse {

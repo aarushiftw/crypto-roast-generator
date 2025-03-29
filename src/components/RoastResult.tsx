@@ -94,7 +94,7 @@ const RoastResult: React.FC = () => {
     if (!roastResult) return;
     
     const tweetText = encodeURIComponent(
-      `I just got absolutely destroyed by the Crypto Roast Bot! I'm likely to mint a Level ${nftLevel} NFT (${nftLevelDescriptions[nftLevel]}). Come get roasted yourself: `
+      `I just got absolutely destroyed by the Crypto Roast Bot! I'm a Level ${nftLevel} crypto degenerate (${nftLevelDescriptions[nftLevel]}). 4/20: Brahma's NFT will expose the truth. #BrahmaRoast`
     );
     const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(window.location.href)}`;
     window.open(tweetUrl, '_blank');
@@ -163,20 +163,22 @@ const RoastResult: React.FC = () => {
                   </p>
                 </div>
                 
-                {/* Trait descriptors section */}
+                {/* Trait descriptors section - removed trait names */}
                 <div className="mt-4 space-y-2 bg-primary/5 p-3 rounded-md">
                   <p className="text-sm text-primary/80 font-medium">Your Trait Analysis:</p>
-                  <p className="text-sm">• Risk-taking: <span className="italic text-foreground/80">{traitDescriptors.risk}</span></p>
-                  <p className="text-sm">• Portfolio management: <span className="italic text-foreground/80">{traitDescriptors.portfolio}</span></p>
-                  <p className="text-sm">• Technical skills: <span className="italic text-foreground/80">{traitDescriptors.technical}</span></p>
+                  <p className="text-sm">• <span className="italic text-foreground/80">{traitDescriptors.risk}</span></p>
+                  <p className="text-sm">• <span className="italic text-foreground/80">{traitDescriptors.portfolio}</span></p>
+                  <p className="text-sm">• <span className="italic text-foreground/80">{traitDescriptors.technical}</span></p>
                 </div>
                 
                 <div className="mt-4">
                   <p className="italic text-primary/90 mb-3">{roastClosing}</p>
                   
-                  <p className="text-foreground/90 border-t border-primary/20 pt-3 mt-3">
-                    4/20: Brahma's NFT will expose the truth
-                  </p>
+                  <div className="flex flex-col items-center border-t border-primary/20 pt-3 mt-3">
+                    <p className="text-foreground/90 font-medium text-center">
+                      4/20: Brahma's NFT will expose the truth
+                    </p>
+                  </div>
                 </div>
                 
                 <div className="space-y-3 pt-3 pb-6">
