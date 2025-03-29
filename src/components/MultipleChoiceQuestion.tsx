@@ -3,7 +3,6 @@ import React from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import { QuestionData } from '@/lib/types/questionnaire';
 import { getRandomItem } from '@/lib/utils/helpers';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 interface MultipleChoiceQuestionProps {
@@ -13,7 +12,6 @@ interface MultipleChoiceQuestionProps {
 const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ question }) => {
   const { 
     addResponse, 
-    nextQuestion, 
     answerSelected, 
     setAnswerSelected, 
     responseText, 
@@ -33,10 +31,6 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
       questionId: question.id,
       answerIndex: index,
     });
-  };
-
-  const handleContinue = () => {
-    nextQuestion();
   };
 
   const questionText = getRandomItem(question.variations);
@@ -66,15 +60,7 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
       ) : (
         <Card className="p-4 border-primary/30 animate-slide-up bg-card/80">
           <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
-          <p className="text-sm text-primary/90 mb-4">{responseText}</p>
-          
-          <Button 
-            onClick={handleContinue} 
-            className="w-full bg-primary/80 hover:bg-primary text-primary-foreground text-sm"
-            size="sm"
-          >
-            Next Question
-          </Button>
+          <p className="text-sm text-primary/90">{responseText}</p>
         </Card>
       )}
     </div>

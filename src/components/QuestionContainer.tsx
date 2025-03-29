@@ -4,7 +4,7 @@ import { useRoast } from '@/contexts/RoastContext';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
 import FuckMarryKillQuestion from './FuckMarryKillQuestion';
 import { QuestionData, FuckMarryKillQuestion as FMKQuestionType } from '@/lib/types/questionnaire';
-import { ArrowRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 const QuestionContainer: React.FC = () => {
   const { 
@@ -58,15 +58,13 @@ const QuestionContainer: React.FC = () => {
         {/* Remove left and right button functionality */}
         <div className="button-left invisible"></div>
         
-        {/* Add indicator to the middle button when answer is selected */}
+        {/* Add seek icon to middle button when answer is selected */}
         <div 
           className={`button-middle relative ${answerSelected ? 'tamagotchi-active-button' : 'tamagotchi-inactive-button'}`} 
           onClick={handleButtonClick}
         >
           {answerSelected && (
-            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-primary text-white px-2 py-1 rounded text-xs whitespace-nowrap">
-              Click to continue <ArrowRight className="inline h-3 w-3 ml-1" />
-            </div>
+            <ChevronRight className="absolute -top-1 -right-1 h-4 w-4 text-primary" />
           )}
         </div>
         
