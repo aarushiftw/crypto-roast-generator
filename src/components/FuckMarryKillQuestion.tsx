@@ -5,7 +5,6 @@ import { FuckMarryKillQuestion as FMKQuestionType, ActionType } from '@/lib/type
 import { getRandomItem } from '@/lib/utils/helpers';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface FuckMarryKillQuestionProps {
@@ -92,39 +91,13 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
   const isActionSelected = (protocol: string, action: ActionType) => {
     return responses[protocol] === action;
   };
-  
-  // Count number of each action used
-  const actionCounts = {
-    fuck: Object.values(responses).filter(a => a === 'fuck').length,
-    marry: Object.values(responses).filter(a => a === 'marry').length,
-    kill: Object.values(responses).filter(a => a === 'kill').length
-  };
 
   return (
     <ScrollArea className="h-[550px] pr-2">
       <div className="space-y-4">
-        {/* Show insight at the top when all protocols are selected */}
-        {answerSelected && (
-          <div ref={insightRef} className="sticky top-0 z-10 mb-4">
-            <Card className="p-4 border-primary/30 animate-slide-up bg-card/80 backdrop-blur-sm">
-              <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
-              <p className="text-sm text-primary/90">{insightText}</p>
-            </Card>
-          </div>
-        )}
-        
         <h2 className="text-xl font-bold text-primary mb-3">
           {questionText.replace("Let's play Fuck, Marry, Kill with these protocols:", "Fuck, Marry or Kill").replace("Let's, play fuck marry or kill with these protocols", "Fuck, Marry or Kill")}
         </h2>
-        
-        {/* Action counter displayed at the top for better visibility */}
-        <div className="flex justify-between items-center py-2 px-3 bg-card/30 rounded-md border border-primary/20 mb-2">
-          {['fuck', 'marry', 'kill'].map(action => (
-            <Badge key={action} variant={actionCounts[action as ActionType] > 0 ? "default" : "outline"} className="uppercase">
-              {action}: {actionCounts[action as ActionType]}/3
-            </Badge>
-          ))}
-        </div>
         
         <div className="space-y-4">
           {protocols.map((protocol) => (
@@ -140,9 +113,9 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="text-lg font-semibold">{protocol}</h3>
                   {responses[protocol] && (
-                    <Badge variant="outline" className="uppercase bg-primary/20 text-primary font-medium">
+                    <div className="uppercase bg-primary/20 text-primary font-medium px-2 py-1 rounded-md">
                       {responses[protocol]}
-                    </Badge>
+                    </div>
                   )}
                 </div>
                 
