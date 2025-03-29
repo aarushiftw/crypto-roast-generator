@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -63,6 +64,34 @@
   text-shadow: 0 0 5px rgba(49, 235, 240, 0.4);
 }
 
+/* Neon text for crypto brainrot UI */
+.neon-text {
+  color: #31EBF0;
+  text-shadow: 
+    0 0 5px rgba(49, 235, 240, 0.7),
+    0 0 10px rgba(49, 235, 240, 0.5),
+    0 0 20px rgba(49, 235, 240, 0.3);
+}
+
+/* Crypto gradient text */
+.crypto-gradient {
+  background: linear-gradient(90deg, #31EBF0, #9b87f5, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cyber text for extra emphasis */
+.cyber-text {
+  color: #31EBF0;
+  text-shadow: 
+    0 0 2px #fff,
+    0 0 4px #31EBF0,
+    0 0 8px #31EBF0;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
 /* Typewriter cursor animation - improved */
 .typing-cursor {
   display: inline-block;
@@ -86,6 +115,43 @@
 
 .animate-slide-left {
   animation: slideLeft 0.5s ease-out;
+}
+
+/* Shadow glow effects */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(49, 235, 240, 0.5);
+}
+
+.shadow-glow-sm {
+  box-shadow: 0 0 10px rgba(49, 235, 240, 0.3);
+}
+
+/* Animated pulse effects */
+.animate-pulse-slow {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.blink-slow {
+  animation: blink 3s ease-in-out infinite;
+}
+
+/* Glitch effect for crypto brainrot */
+.animate-glitch {
+  animation: glitch 0.2s linear;
+}
+
+/* Glow effect container */
+.glow-effect {
+  background: radial-gradient(circle at center, rgba(49, 235, 240, 0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
 }
 
 @keyframes fadeIn {
@@ -118,6 +184,78 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(49, 235, 240, 0.7),
+      0 0 10px rgba(49, 235, 240, 0.5);
+  }
+  50% {
+    text-shadow: 
+      0 0 10px rgba(49, 235, 240, 0.9),
+      0 0 20px rgba(49, 235, 240, 0.7),
+      0 0 30px rgba(49, 235, 240, 0.5);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(2px, 0) skew(0deg);
+  }
+  20% {
+    transform: translate(-2px, 0) skew(0deg);
+  }
+  40% {
+    transform: translate(2px, 0) skew(0deg);
+  }
+  60% {
+    transform: translate(-2px, 0) skew(0deg);
+  }
+  80% {
+    transform: translate(0, 2px) skew(5deg);
+  }
+  100% {
+    transform: translate(0, 0) skew(0deg);
+  }
+}
+
+/* Cursor blink animation - improved */
+@keyframes cursor-blink {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.2;
   }
 }
 
@@ -213,10 +351,11 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
 }
 
+/* Crypto brainrot border */
 .cyberpunk-border {
   position: relative;
-  border: 1px solid rgba(49, 235, 240, 0.2);
-  box-shadow: 0 0 10px rgba(49, 235, 240, 0.1);
+  border: 1px solid rgba(49, 235, 240, 0.3);
+  box-shadow: 0 0 15px rgba(49, 235, 240, 0.2);
 }
 
 .cyberpunk-border::after {
@@ -226,7 +365,7 @@ h1, h2, h3, h4, h5, h6 {
   left: -1px;
   right: -1px;
   bottom: -1px;
-  background: linear-gradient(90deg, transparent, rgba(49, 235, 240, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(49, 235, 240, 0.4), transparent);
   z-index: -1;
   animation: borderGlow 4s linear infinite;
 }
@@ -253,26 +392,22 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
 }
 
+/* Blinking crypto emojis */
+.crypto-emoji {
+  animation: pulse 2s ease-in-out infinite;
+  display: inline-block;
+}
+
 @keyframes borderGlow {
   0%, 100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
-
-/* Cursor blink animation - improved */
-@keyframes cursor-blink {
-  0%, 100% {
-    opacity: 0.8;
-  }
-  50% {
     opacity: 0.2;
   }
+  50% {
+    opacity: 0.5;
+  }
 }
 
-/* Cyberpunk Neon Gridlines */
+/* Matrix-style background animation */
 .neon-grid-bottom {
   position: fixed;
   bottom: 0;
@@ -280,8 +415,8 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   height: 100vh;
   background-image: 
-    linear-gradient(to right, rgba(155, 135, 245, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(155, 135, 245, 0.15) 1px, transparent 1px);
+    linear-gradient(to right, rgba(49, 235, 240, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(49, 235, 240, 0.15) 1px, transparent 1px);
   background-size: 30px 30px;
   z-index: -1;
   pointer-events: none;
@@ -294,11 +429,11 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(
     to right, 
     transparent, 
-    rgba(155, 135, 245, 0.7), 
+    rgba(49, 235, 240, 0.7), 
     transparent
   );
   animation: neon-pulse 3s ease-in-out infinite;
@@ -309,6 +444,18 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.3;
   }
   50% {
-    opacity: 0.7;
+    opacity: 0.8;
   }
+}
+
+/* Add some floating crypto symbols in background */
+.cyber-bg::before {
+  content: '₿ Ξ ◎ ₮';
+  position: absolute;
+  font-size: 40px;
+  opacity: 0.05;
+  top: 10%;
+  right: 5%;
+  color: var(--primary);
+  z-index: -1;
 }
