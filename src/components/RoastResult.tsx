@@ -32,24 +32,26 @@ const RoastResult: React.FC = () => {
       const level = Math.min(4, Math.max(1, Math.ceil(roastResult.percentageScore / 25)));
       setNftLevel(level);
       
-      // Display stages sequentially with 1.5-second gaps
+      // Display stages sequentially with 1-second gaps (shortened)
       setDisplayStage(1);
-      await delay(1500);
+      await delay(1000);
       
       // After opening and reaction, show main roast line
       setDisplayStage(2);
-      await delay(1500);
+      await delay(1000);
       
       // After main roast, show specific roasts one by one
       setDisplayStage(3);
       
-      for (let i = 0; i < roastResult.specificRoasts.length; i++) {
-        await delay(1500);
+      // Show up to 2 specific roasts max to avoid scrolling
+      const maxRoasts = Math.min(2, roastResult.specificRoasts.length);
+      for (let i = 0; i < maxRoasts; i++) {
+        await delay(1000);
         setVisibleSpecificRoasts(prev => [...prev, i]);
       }
       
       // Show final section
-      await delay(1500);
+      await delay(1000);
       setDisplayStage(4);
       setFullRoastComplete(true);
     };
@@ -79,30 +81,30 @@ const RoastResult: React.FC = () => {
       </div>
       
       <div className="tamagotchi-screen">
-        <div className="screen-inner space-y-6">
-          <h2 className="text-2xl font-bold text-center gradient-text mb-6">
+        <div className="screen-inner space-y-3"> {/* Reduced spacing */}
+          <h2 className="text-xl font-bold text-center gradient-text mb-2"> {/* Reduced size and margin */}
             YOUR ONCHAIN VERDICT
           </h2>
           
           {displayStage >= 1 && (
             <div className="animate-fade-in">
-              <p className="text-lg text-primary/90">{roastOpening}</p>
-              <p className="text-lg italic text-foreground/80 mt-2">{roastReaction}</p>
+              <p className="text-sm text-primary/90">{roastOpening}</p> {/* Reduced text size */}
+              <p className="text-sm italic text-foreground/80 mt-1">{roastReaction}</p> {/* Reduced text size and margin */}
             </div>
           )}
           
           {displayStage >= 2 && (
             <div className="animate-fade-in">
-              <p className="text-lg italic text-foreground/80 mb-3">{midRoastReaction}</p>
-              <p className="text-xl font-bold terminal-text py-2">{roastResult.roastLine}</p>
+              <p className="text-sm italic text-foreground/80 mb-1">{midRoastReaction}</p> {/* Reduced text size and margin */}
+              <p className="text-base font-bold terminal-text py-1">{roastResult.roastLine}</p> {/* Reduced size and padding */}
             </div>
           )}
           
           {displayStage >= 3 && (
-            <div className="space-y-3">
-              {roastResult.specificRoasts.map((roast, index) => (
+            <div className="space-y-1"> {/* Reduced spacing */}
+              {roastResult.specificRoasts.slice(0, 2).map((roast, index) => ( /* Limit to first 2 roasts */
                 visibleSpecificRoasts.includes(index) && (
-                  <p key={index} className="text-lg text-primary/90 animate-fade-in">
+                  <p key={index} className="text-sm text-primary/90 animate-fade-in"> {/* Reduced text size */}
                     &gt; {roast}
                   </p>
                 )
@@ -112,43 +114,41 @@ const RoastResult: React.FC = () => {
           
           {displayStage >= 4 && (
             <div className="animate-fade-in">
-              <div className="mt-6 pt-4 border-t border-primary/20">
-                <p className="text-lg font-medium">
+              <div className="mt-2 pt-2 border-t border-primary/20"> {/* Reduced margin and padding */}
+                <p className="text-sm font-medium"> {/* Reduced text size */}
                   You're likely to mint a Level {nftLevel} NFT. {
                     roastResult.percentageScore > 70 
-                      ? "Even BitConnect victims are looking at your trades thinking 'at least I'm not that guy.'" 
-                      : "There's still hope for you... barely."
+                      ? "Even BitConnect victims are looking at you." 
+                      : "There's still hope... barely."
                   }
                 </p>
               </div>
               
-              <div>
-                <p className="text-lg italic text-primary/90 mb-4 mt-4">{roastClosing}</p>
-                
-                <p className="text-lg text-foreground/90 border-t border-primary/20 pt-4 mt-4">
+              <div className="mt-2"> {/* Reduced margin */}
+                <p className="text-sm text-foreground/90 border-t border-primary/20 pt-2 mt-2"> {/* Reduced text size, margin and padding */}
                   Come 4/20, Brahma's onchain imprint NFT will expose the truth.
                 </p>
               </div>
               
-              <div className="space-y-4 pt-4">
+              <div className="space-y-2 pt-2"> {/* Reduced spacing and padding */}
                 <div className="flex justify-center">
                   <a 
                     href="https://t.me/BrahmaRewards" 
                     target="_blank"
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground 
-                      rounded-md transition-colors duration-300 font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-secondary hover:bg-secondary/80 text-foreground 
+                      rounded-md transition-colors duration-300 text-sm font-medium" /* Reduced padding and text size */
                   >
-                    <Bot size={18} className="text-primary" />
+                    <Bot size={16} className="text-primary" /> {/* Reduced icon size */}
                     Remind me to mint
                   </a>
                 </div>
                 
                 <Button 
                   onClick={handleShareOnTwitter}
-                  className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+                  className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground text-sm" /* Added text-sm */
                 >
-                  <Share size={18} />
+                  <Share size={16} /> {/* Reduced icon size */}
                   Share My Roast Report
                 </Button>
               </div>
