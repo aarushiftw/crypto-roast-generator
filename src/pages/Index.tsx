@@ -19,6 +19,7 @@ const Index = () => {
         <footer className="py-4 text-center text-sm text-muted-foreground">
           <p>© 2025 Brahma.fi • All rights reserved</p>
         </footer>
+        <div className="neon-grid-bottom"></div>
       </div>
     </RoastProvider>
   );
