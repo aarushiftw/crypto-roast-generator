@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import TypewriterText from './TypewriterText';
@@ -36,7 +37,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           
           <div className="px-4 my-4">
             <TypewriterText 
-              text="Answer honestly or lie, your real onchain imprint will reveal the truth. What your ENS name desperately tries to rebrand." 
+              text="Answer honestly or lie, your real onchain imprint will reveal the truth your ENS name desperately tries to rebrand." 
               className="text-sm font-medium terminal-text text-center"
               onComplete={handleTypingComplete}
               delay={500}
