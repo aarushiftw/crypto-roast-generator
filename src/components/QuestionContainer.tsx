@@ -4,7 +4,7 @@ import { useRoast } from '@/contexts/RoastContext';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
 import FuckMarryKillQuestion from './FuckMarryKillQuestion';
 import { QuestionData, FuckMarryKillQuestion as FMKQuestionType } from '@/lib/types/questionnaire';
-import { ChevronRight } from 'lucide-react';
+import { SkipForward } from 'lucide-react';
 
 const QuestionContainer: React.FC = () => {
   const { 
@@ -58,13 +58,13 @@ const QuestionContainer: React.FC = () => {
         {/* Remove left and right button functionality */}
         <div className="button-left invisible"></div>
         
-        {/* Add seek icon to middle button when answer is selected */}
+        {/* Add skip-forward icon to middle button when answer is selected and make it larger */}
         <div 
           className={`button-middle relative ${answerSelected ? 'tamagotchi-active-button' : 'tamagotchi-inactive-button'}`} 
           onClick={handleButtonClick}
         >
           {answerSelected && (
-            <ChevronRight className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
+            <SkipForward className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-6 w-6 text-primary" />
           )}
         </div>
         

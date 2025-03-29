@@ -58,19 +58,18 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
     const allSelected = protocols.every(p => newResponses[p] !== undefined);
     if (allSelected) {
       setAnswerSelected(true);
+      
+      // Auto-submit after slight delay when all are selected
+      setTimeout(() => {
+        addResponse({
+          questionId: question.id,
+          fmkResponses: Object.entries(newResponses).map(([protocol, action]) => ({
+            protocol,
+            action
+          }))
+        });
+      }, 1500);
     }
-  };
-  
-  const handleSubmit = () => {
-    // Add full response and move to next question
-    addResponse({
-      questionId: question.id,
-      fmkResponses: Object.entries(responses).map(([protocol, action]) => ({
-        protocol,
-        action
-      }))
-    });
-    nextQuestion();
   };
   
   // Helper to check if a specific action is selected for a protocol
@@ -149,18 +148,6 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
             </Card>
           ))}
         </div>
-        
-        {answerSelected && (
-          <div className="py-3 animate-fade-in flex justify-between items-center">
-            <p className="text-sm text-primary/80">Press middle button to continue</p>
-            <Button 
-              onClick={handleSubmit} 
-              className="bg-primary/80 hover:bg-primary text-primary-foreground"
-            >
-              Next Question
-            </Button>
-          </div>
-        )}
       </div>
     </ScrollArea>
   );
