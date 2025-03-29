@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import { 
@@ -159,7 +158,7 @@ const RoastResult: React.FC = () => {
                     Based on your traits, you're most likely a <span className="text-primary">Level {nftLevel}</span> crypto degenerate
                   </p>
                   <p className="mt-2 text-foreground/80">
-                    You're likely to mint a <span className="text-primary">Level {nftLevel} NFT</span> when Brahma's drop happens: {nftLevelDescriptions[nftLevel]}
+                    You're likely to mint a Level {nftLevel} NFT when Brahma's drop happens: {nftLevelDescriptions[nftLevel]}
                   </p>
                 </div>
                 
