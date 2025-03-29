@@ -795,7 +795,7 @@ export const roastFlow: RoastFlow = {
       "Inspecting your tragic roast history...",
       "Examining your questionable onchain decisions...",
       "Looking at your onchain activity (god help me)...",
-      "RIP the digital wasteland you call a wallet...",
+      "RIP the wasteland you call a wallet...",
       "Calculating your poor life choices in real time..."
     ],
   reactions: [
