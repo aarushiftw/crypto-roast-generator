@@ -64,7 +64,7 @@ const QuestionContainer: React.FC = () => {
           onClick={handleButtonClick}
         >
           {answerSelected && (
-            <ChevronRight className="absolute -top-1 -right-1 h-4 w-4 text-primary" />
+            <ChevronRight className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
           )}
         </div>
         

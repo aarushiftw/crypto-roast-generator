@@ -139,12 +139,10 @@ const RoastResult: React.FC = () => {
               <div className="animate-fade-in mt-6 space-y-4">
                 <div className="pt-3 border-t border-primary/20">
                   <p className="font-medium text-lg">
-                    Level {nftLevel} NFT: {nftLevelDescriptions[nftLevel]}
+                    Based on your traits, you're most likely a <span className="text-primary">Level {nftLevel}</span> crypto degenerate
                   </p>
                   <p className="mt-2 text-foreground/80">
-                    {roastResult.percentageScore > 70 
-                      ? "Even BitConnect victims look better" 
-                      : "There's still hope... barely"}
+                    You're likely to mint a <span className="text-primary">Level {nftLevel} NFT</span> when Brahma's drop happens: {nftLevelDescriptions[nftLevel]}
                   </p>
                 </div>
                 
