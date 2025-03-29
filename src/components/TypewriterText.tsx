@@ -21,6 +21,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
 }) => {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [typingComplete, setTypingComplete] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -31,14 +32,18 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
         await new Promise(resolve => setTimeout(resolve, delay));
       }
       
-      setIsTyping(true);
-      // Clear any previous text before starting to type
-      setDisplayText('');
-      await simulateTyping(text, setDisplayText, typingSpeed, typingSpeed * 1.5);
-      setIsTyping(false);
-      
-      if (onComplete) {
-        timer = setTimeout(onComplete, 500);
+      // Only start typing if not already completed (prevents looping)
+      if (!typingComplete || loop) {
+        setIsTyping(true);
+        // Clear any previous text before starting to type
+        setDisplayText('');
+        await simulateTyping(text, setDisplayText, typingSpeed, typingSpeed * 1.5);
+        setIsTyping(false);
+        setTypingComplete(true);
+        
+        if (onComplete) {
+          timer = setTimeout(onComplete, 500);
+        }
       }
     };
     
@@ -47,7 +52,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [text, onComplete, delay, typingSpeed]);
+  }, [text, onComplete, delay, typingSpeed, loop, typingComplete]);
 
   // Handle line breaks and preserve proper scrolling
   useEffect(() => {

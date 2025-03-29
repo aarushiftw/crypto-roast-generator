@@ -11,10 +11,10 @@ const RoastSummaryScreen: React.FC = () => {
   
   useEffect(() => {
     const generateResult = async () => {
-      // Simulate a calculation period
+      // Simulate a calculation period but not too long
       await new Promise(resolve => setTimeout(resolve, 2500));
       
-      // Generate the roast result
+      // Generate the roast result - but don't include wallet scanning references
       const result = generateRoastResult(userResponses, traitScores);
       
       // Update the context with the result

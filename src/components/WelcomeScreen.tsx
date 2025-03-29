@@ -41,6 +41,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
               onComplete={handleTypingComplete}
               delay={500}
               typingSpeed={50}
+              loop={false}
             />
           </div>
           
