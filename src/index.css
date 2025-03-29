@@ -64,6 +64,12 @@
   text-shadow: 0 0 5px rgba(49, 235, 240, 0.4);
 }
 
+/* Typewriter cursor animation */
+.typing-cursor {
+  display: inline-block;
+  animation: cursor-blink 0.7s infinite;
+}
+
 .animate-fade-in {
   animation: fadeIn 0.4s ease-in-out;
 }
@@ -155,6 +161,18 @@ h1, h2, h3, h4, h5, h6 {
   background-clip: text;
 }
 
+/* Futuristic background elements */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(49, 235, 240, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(49, 235, 240, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--from), var(--to));
+}
+
 .cyber-bg {
   position: relative;
 }
@@ -198,5 +216,15 @@ h1, h2, h3, h4, h5, h6 {
   }
   50% {
     opacity: 0.4;
+  }
+}
+
+/* Cursor blink animation */
+@keyframes cursor-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }

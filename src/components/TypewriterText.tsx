@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { simulateTyping } from '@/lib/utils/helpers';
 
 interface TypewriterTextProps {
@@ -19,7 +19,8 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
 }) => {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     let timer: NodeJS.Timeout;
     
@@ -29,7 +30,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
       }
       
       setIsTyping(true);
-      await simulateTyping(text, setDisplayText, typingSpeed, typingSpeed * 2);
+      await simulateTyping(text, setDisplayText, typingSpeed, typingSpeed * 1.5);
       setIsTyping(false);
       
       if (onComplete) {
@@ -44,10 +45,28 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
     };
   }, [text, onComplete, delay, typingSpeed]);
 
+  // Handle line breaks and preserve proper scrolling
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [displayText]);
+
+  // Process text with proper line breaks for display
+  const processedText = displayText.split('\n').map((line, i) => (
+    <React.Fragment key={i}>
+      {line}
+      {i < displayText.split('\n').length - 1 && <br />}
+    </React.Fragment>
+  ));
+
   return (
-    <div className={`${className} font-mono`}>
-      {displayText}
-      {isTyping && <span className="opacity-70">▌</span>}
+    <div 
+      ref={containerRef}
+      className={`${className} font-mono max-h-48 overflow-y-auto transition-all duration-200`}
+    >
+      {processedText}
+      {isTyping && <span className="typing-cursor opacity-70">▌</span>}
     </div>
   );
 };

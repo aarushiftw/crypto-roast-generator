@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { 
   UserResponse, 
@@ -47,7 +46,7 @@ interface RoastProviderProps {
 }
 
 export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
-  // Combine and randomly select questions (limiting FMK questions to max 2)
+  // Combine and randomly select questions (limiting FMK questions to exactly 2)
   const [shuffledQuestions, setShuffledQuestions] = useState<(QuestionData | FuckMarryKillQuestion)[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userResponses, setUserResponses] = useState<UserResponse[]>([]);
@@ -73,57 +72,33 @@ export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
     const shuffledMCQuestions = shuffleArray([...questions]);
     const shuffledFMKQuestions = shuffleArray([...fmkQuestions]);
     
-    // Limit FMK questions to max 2
-    const limitedFMKQuestions = shuffledFMKQuestions.slice(0, Math.min(2, shuffledFMKQuestions.length));
+    // Always include exactly 2 FMK questions
+    const selectedFMKQuestions = shuffledFMKQuestions.slice(0, 2);
     
-    // Calculate how many MC questions we need to get to 10 total
-    const mcQuestionsNeeded = 10 - limitedFMKQuestions.length;
+    // Calculate how many MC questions we need to get to 8 total (was 10)
+    const mcQuestionsNeeded = 8 - selectedFMKQuestions.length;
     const selectedMCQuestions = shuffledMCQuestions.slice(0, mcQuestionsNeeded);
     
-    // Combine but ensure FMK questions aren't back-to-back
+    // Position FMK questions to be evenly distributed
+    const firstFMKPosition = Math.floor(mcQuestionsNeeded / 3);  // Around 1/3 of the way through
+    const secondFMKPosition = Math.floor(mcQuestionsNeeded * 2 / 3);  // Around 2/3 of the way through
+    
     let allSelectedQuestions: (QuestionData | FuckMarryKillQuestion)[] = [];
     
-    // If we have 2 FMK questions, ensure they're not back-to-back by placing them at positions
-    // that are at least 2 questions apart
-    if (limitedFMKQuestions.length === 2) {
-      // Insert first FMK question at a random position in the first half
-      const firstPosition = Math.floor(Math.random() * (mcQuestionsNeeded / 2));
-      
-      // Insert second FMK question at a random position in the second half
-      const secondPosition = Math.floor(mcQuestionsNeeded / 2) + 2 + 
-                             Math.floor(Math.random() * ((mcQuestionsNeeded / 2) - 2));
-      
-      for (let i = 0; i < mcQuestionsNeeded; i++) {
-        if (i === firstPosition) {
-          allSelectedQuestions.push(limitedFMKQuestions[0]);
-        } else if (i === secondPosition && limitedFMKQuestions.length > 1) {
-          allSelectedQuestions.push(limitedFMKQuestions[1]);
-        }
-        
-        if (i < selectedMCQuestions.length) {
-          allSelectedQuestions.push(selectedMCQuestions[i]);
-        }
+    for (let i = 0; i < mcQuestionsNeeded; i++) {
+      if (i === firstFMKPosition) {
+        allSelectedQuestions.push(selectedFMKQuestions[0]);
+      } else if (i === secondFMKPosition) {
+        allSelectedQuestions.push(selectedFMKQuestions[1]);
       }
-    } else if (limitedFMKQuestions.length === 1) {
-      // If only one FMK question, place it randomly
-      const position = Math.floor(Math.random() * mcQuestionsNeeded);
       
-      for (let i = 0; i < mcQuestionsNeeded; i++) {
-        if (i === position) {
-          allSelectedQuestions.push(limitedFMKQuestions[0]);
-        }
-        
-        if (i < selectedMCQuestions.length) {
-          allSelectedQuestions.push(selectedMCQuestions[i]);
-        }
+      if (i < selectedMCQuestions.length) {
+        allSelectedQuestions.push(selectedMCQuestions[i]);
       }
-    } else {
-      // No FMK questions, just use all MC questions
-      allSelectedQuestions = [...selectedMCQuestions];
     }
     
-    // Ensure we have exactly 10 questions
-    allSelectedQuestions = allSelectedQuestions.slice(0, 10);
+    // Ensure we have exactly 8 questions
+    allSelectedQuestions = allSelectedQuestions.slice(0, 8);
     
     setShuffledQuestions(allSelectedQuestions);
   }, []);
@@ -202,21 +177,36 @@ export const RoastProvider: React.FC<RoastProviderProps> = ({ children }) => {
   };
 
   const restartQuiz = () => {
-    // Re-shuffle questions for a new quiz, limiting FMK questions to 2
+    // Re-shuffle questions for a new quiz, with exactly 2 FMK questions out of 8 total
     const shuffledMCQuestions = shuffleArray([...questions]);
     const shuffledFMKQuestions = shuffleArray([...fmkQuestions]);
     
-    // Limit FMK questions to max 2
-    const limitedFMKQuestions = shuffledFMKQuestions.slice(0, 2);
+    // Always select exactly 2 FMK questions
+    const selectedFMKQuestions = shuffledFMKQuestions.slice(0, 2);
     
-    // Calculate how many MC questions we need to get to 10 total
-    const mcQuestionsNeeded = 10 - limitedFMKQuestions.length;
+    // Calculate how many MC questions we need to get to 8 total
+    const mcQuestionsNeeded = 8 - selectedFMKQuestions.length;
     const selectedMCQuestions = shuffledMCQuestions.slice(0, mcQuestionsNeeded);
     
-    // Combine and shuffle again for final order
-    const allSelectedQuestions = shuffleArray([...selectedMCQuestions, ...limitedFMKQuestions]);
+    // Position FMK questions to be evenly distributed
+    const allSelectedQuestions = [];
+    const firstPosition = Math.floor(Math.random() * (mcQuestionsNeeded / 2));
+    const secondPosition = Math.floor(mcQuestionsNeeded / 2) + 1 + 
+                          Math.floor(Math.random() * (mcQuestionsNeeded / 2 - 1));
     
-    setShuffledQuestions(allSelectedQuestions);
+    for (let i = 0; i < mcQuestionsNeeded; i++) {
+      if (i === firstPosition) {
+        allSelectedQuestions.push(selectedFMKQuestions[0]);
+      } else if (i === secondPosition) {
+        allSelectedQuestions.push(selectedFMKQuestions[1]);
+      }
+      
+      if (i < selectedMCQuestions.length) {
+        allSelectedQuestions.push(selectedMCQuestions[i]);
+      }
+    }
+    
+    setShuffledQuestions(allSelectedQuestions.slice(0, 8));
     setCurrentQuestionIndex(0);
     setUserResponses([]);
     setRoastResult(null);
