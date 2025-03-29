@@ -17,14 +17,13 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
     userFMKResponses, 
     nextQuestion, 
     addResponse,
-    responseText, 
     setResponseText,
     answerSelected, 
     setAnswerSelected 
   } = useRoast();
   
   const [responses, setResponses] = useState<Record<string, ActionType>>({});
-  const [currentFeedback, setCurrentFeedback] = useState<string | null>(null);
+  const [insights, setInsights] = useState<Record<string, string>>({});
   
   const questionText = getRandomItem(question.variations);
   const { protocols } = question;
@@ -43,10 +42,10 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
     // Add to context
     addFMKResponse(protocol, action);
     
-    // Get and show response text for this action
+    // Get and store response text for this action
     const responseOptions = question.responsePatterns[action][protocol];
     const response = getRandomItem(responseOptions);
-    setCurrentFeedback(response);
+    setInsights(prev => ({...prev, [protocol]: response}));
     
     // Check if all protocols have been assigned
     const allSelected = protocols.every(p => newResponses[p] !== undefined);
@@ -80,7 +79,7 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
   };
   
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in relative">
       <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">
         {questionText.replace("Let's play Fuck, Marry, Kill with these protocols:", "Fuck, Marry or Kill").replace("Let's, play fuck marry or kill with these protocols", "Fuck, Marry or Kill")}
       </h2>
@@ -136,15 +135,17 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
         ))}
       </div>
       
-      {currentFeedback && (
-        <Card className="p-4 border-primary/30 bg-card/80 animate-fade-in mt-4">
-          <h3 className="text-lg font-semibold mb-2 text-primary">Insight</h3>
-          <p className="text-md text-primary/90">{currentFeedback}</p>
-        </Card>
-      )}
-      
-      {answerSelected && (
-        <div className="mt-6 animate-fade-in">
+      {answerSelected && Object.keys(insights).length > 0 && (
+        <div className="mt-4 space-y-4">
+          <h3 className="text-lg font-semibold text-primary">Insights</h3>
+          {Object.entries(insights).map(([protocol, insight]) => (
+            <Card key={protocol} className="p-4 border-primary/30 bg-card/80">
+              <p className="text-md text-primary/90">
+                <strong>{protocol}</strong>: {insight}
+              </p>
+            </Card>
+          ))}
+          
           <Button 
             onClick={handleSubmit} 
             className="w-full bg-primary/80 hover:bg-primary text-primary-foreground"
@@ -153,6 +154,9 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
           </Button>
         </div>
       )}
+      
+      {/* Neon grid lines */}
+      <div className="absolute inset-x-0 bottom-0 h-20 neon-grid z-0"></div>
     </div>
   );
 };
