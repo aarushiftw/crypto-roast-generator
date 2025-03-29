@@ -32,19 +32,19 @@ const RoastResult: React.FC = () => {
       const level = Math.min(4, Math.max(1, Math.ceil(roastResult.percentageScore / 25)));
       setNftLevel(level);
       
-      // Display stages sequentially
+      // Display stages sequentially with 1.5-second gaps
       setDisplayStage(1);
+      await delay(1500);
       
       // After opening and reaction, show main roast line
-      await delay(2000);
       setDisplayStage(2);
+      await delay(1500);
       
       // After main roast, show specific roasts one by one
-      await delay(1500);
       setDisplayStage(3);
       
       for (let i = 0; i < roastResult.specificRoasts.length; i++) {
-        await delay(1200);
+        await delay(1500);
         setVisibleSpecificRoasts(prev => [...prev, i]);
       }
       
@@ -158,3 +158,4 @@ const RoastResult: React.FC = () => {
 };
 
 export default RoastResult;
+
