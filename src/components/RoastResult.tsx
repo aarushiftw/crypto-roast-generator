@@ -100,7 +100,7 @@ const RoastResult: React.FC = () => {
         <div className="space-y-4 pt-2">
           <div className="flex justify-center">
             <a 
-              href="https://t.me/brahmanetwork" 
+              href="https://t.me/BrahmaRewards" 
               target="_blank"
               rel="noopener noreferrer" 
               className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground 

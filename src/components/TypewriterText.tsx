@@ -91,13 +91,6 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
     };
   }, [text, onComplete, delay, typingSpeed, loop, typingComplete]);
 
-  // Handle line breaks and preserve proper scrolling
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    }
-  }, [displayText]);
-
   // Process text with proper line breaks for display
   const processedText = displayText.split('\n').map((line, i) => (
     <React.Fragment key={i}>
@@ -109,7 +102,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   return (
     <div 
       ref={containerRef}
-      className={`${className} font-mono max-h-48 overflow-y-auto transition-all duration-200`}
+      className={`${className} font-mono overflow-hidden transition-all duration-200`}
     >
       {processedText}
       {isTyping && <span className="typing-cursor opacity-80">▌</span>}
