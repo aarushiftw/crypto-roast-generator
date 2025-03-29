@@ -4,11 +4,25 @@ import { Loader } from 'lucide-react';
 import { getRandomItem } from '@/lib/utils/helpers';
 import { roastFlow } from '@/lib/data/questions';
 import { toast } from '@/hooks/use-toast';
+import { Progress } from '@/components/ui/progress';
 
-const LoadingScreen: React.FC = () => {
+interface LoadingScreenProps {
+  progress?: number;
+}
+
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress = 0 }) => {
   // Get a random loading message
-  const loadingMessage = getRandomItem(roastFlow.openings);
+  const [loadingMessage, setLoadingMessage] = useState(getRandomItem(roastFlow.openings));
   const [showRedirectNotice, setShowRedirectNotice] = useState(false);
+  
+  // Update loading message occasionally
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoadingMessage(getRandomItem(roastFlow.openings));
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
   
   useEffect(() => {
     // Show redirect notice after 10 seconds
@@ -34,8 +48,15 @@ const LoadingScreen: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-8 relative">
-      <Loader className="h-12 w-12 animate-spin text-[#B2F7FE]" />
-      <p className="mt-4 text-lg font-medium terminal-text">{loadingMessage}</p>
+      <Loader className="h-12 w-12 animate-spin text-[#B2F7FE] mb-6" />
+      
+      <div className="w-full max-w-md mb-6">
+        <Progress value={progress} className="h-2 bg-gray-700" />
+        <p className="text-xs text-muted-foreground mt-1 text-right">{Math.round(progress)}%</p>
+      </div>
+      
+      <p className="mt-2 text-lg font-medium terminal-text text-center">{loadingMessage}</p>
+      <p className="mt-3 text-sm text-primary/70">Analyzing your responses...</p>
       
       {showRedirectNotice && (
         <div className="mt-6 animate-fade-in text-center">
