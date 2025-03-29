@@ -10,12 +10,14 @@ import {
 import { delay } from '@/lib/utils/helpers';
 import { Share, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import TypewriterText from './TypewriterText';
 
 const RoastResult: React.FC = () => {
   const { roastResult, restartQuiz } = useRoast();
   const [displayStage, setDisplayStage] = useState(0);
   const [fullRoastComplete, setFullRoastComplete] = useState(false);
   const [nftLevel, setNftLevel] = useState(1);
+  const [visibleSpecificRoasts, setVisibleSpecificRoasts] = useState<number[]>([]);
 
   const roastOpening = getRandomRoastOpening();
   const roastReaction = getRandomRoastReaction();
@@ -30,7 +32,24 @@ const RoastResult: React.FC = () => {
       const level = Math.min(4, Math.max(1, Math.ceil(roastResult.percentageScore / 25)));
       setNftLevel(level);
       
-      // Display all stages immediately instead of sequentially
+      // Display stages sequentially
+      setDisplayStage(1);
+      
+      // After opening and reaction, show main roast line
+      await delay(2000);
+      setDisplayStage(2);
+      
+      // After main roast, show specific roasts one by one
+      await delay(1500);
+      setDisplayStage(3);
+      
+      for (let i = 0; i < roastResult.specificRoasts.length; i++) {
+        await delay(1200);
+        setVisibleSpecificRoasts(prev => [...prev, i]);
+      }
+      
+      // Show final section
+      await delay(1500);
       setDisplayStage(4);
       setFullRoastComplete(true);
     };
@@ -63,62 +82,76 @@ const RoastResult: React.FC = () => {
           YOUR ONCHAIN VERDICT
         </h2>
         
-        <p className="text-lg text-primary/90">{roastOpening}</p>
-        <p className="text-lg italic text-foreground/80">{roastReaction}</p>
-        
-        <div>
-          <p className="text-lg italic text-foreground/80 mb-3">{midRoastReaction}</p>
-          <p className="text-xl font-bold terminal-text py-2">{roastResult.roastLine}</p>
-        </div>
-        
-        <div className="space-y-3">
-          {roastResult.specificRoasts.map((roast, index) => (
-            <p key={index} className="text-lg text-primary/90">
-              &gt; {roast}
-            </p>
-          ))}
-          
-          <div className="mt-6 pt-4 border-t border-primary/20">
-            <p className="text-lg font-medium">
-              You're likely to mint a Level {nftLevel} NFT. {
-                roastResult.percentageScore > 70 
-                  ? "Even BitConnect victims are looking at your trades thinking 'at least I'm not that guy.'" 
-                  : "There's still hope for you... barely."
-              }
-            </p>
+        {displayStage >= 1 && (
+          <div className="animate-fade-in">
+            <p className="text-lg text-primary/90">{roastOpening}</p>
+            <p className="text-lg italic text-foreground/80 mt-2">{roastReaction}</p>
           </div>
-        </div>
+        )}
         
-        <div>
-          <p className="text-lg italic text-primary/90 mb-4">{roastClosing}</p>
-          
-          <p className="text-lg text-foreground/90 border-t border-primary/20 pt-4 mt-4">
-            Come 4/20, Brahma's onchain imprint NFT will expose the truth.
-          </p>
-        </div>
-        
-        <div className="space-y-4 pt-2">
-          <div className="flex justify-center">
-            <a 
-              href="https://t.me/BrahmaRewards" 
-              target="_blank"
-              rel="noopener noreferrer" 
-              className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground 
-                rounded-md transition-colors duration-300 font-medium"
-            >
-              <Bell size={18} className="text-primary" />
-              Remind me to mint
-            </a>
+        {displayStage >= 2 && (
+          <div className="animate-fade-in">
+            <p className="text-lg italic text-foreground/80 mb-3">{midRoastReaction}</p>
+            <p className="text-xl font-bold terminal-text py-2">{roastResult.roastLine}</p>
           </div>
-          
-          <Button 
-            onClick={handleShareOnTwitter}
-            className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
-          >
-            <Share size={18} />
-            Share My Roast Report
-          </Button>
-        </div>
+        )}
+        
+        {displayStage >= 3 && (
+          <div className="space-y-3">
+            {roastResult.specificRoasts.map((roast, index) => (
+              visibleSpecificRoasts.includes(index) && (
+                <p key={index} className="text-lg text-primary/90 animate-fade-in">
+                  &gt; {roast}
+                </p>
+              )
+            ))}
+          </div>
+        )}
+        
+        {displayStage >= 4 && (
+          <div className="animate-fade-in">
+            <div className="mt-6 pt-4 border-t border-primary/20">
+              <p className="text-lg font-medium">
+                You're likely to mint a Level {nftLevel} NFT. {
+                  roastResult.percentageScore > 70 
+                    ? "Even BitConnect victims are looking at your trades thinking 'at least I'm not that guy.'" 
+                    : "There's still hope for you... barely."
+                }
+              </p>
+            </div>
+            
+            <div>
+              <p className="text-lg italic text-primary/90 mb-4 mt-4">{roastClosing}</p>
+              
+              <p className="text-lg text-foreground/90 border-t border-primary/20 pt-4 mt-4">
+                Come 4/20, Brahma's onchain imprint NFT will expose the truth.
+              </p>
+            </div>
+            
+            <div className="space-y-4 pt-4">
+              <div className="flex justify-center">
+                <a 
+                  href="https://t.me/BrahmaRewards" 
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground 
+                    rounded-md transition-colors duration-300 font-medium"
+                >
+                  <Bell size={18} className="text-primary" />
+                  Remind me to mint
+                </a>
+              </div>
+              
+              <Button 
+                onClick={handleShareOnTwitter}
+                className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+              >
+                <Share size={18} />
+                Share My Roast Report
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
