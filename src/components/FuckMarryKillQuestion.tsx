@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import { FuckMarryKillQuestion as FMKQuestionType, ActionType } from '@/lib/types/questionnaire';
 import { getRandomItem } from '@/lib/utils/helpers';
@@ -26,9 +26,22 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
   
   const [responses, setResponses] = useState<Record<string, ActionType>>({});
   const [protocolFeedback, setProtocolFeedback] = useState<Record<string, string>>({});
+  const [insightText, setInsightText] = useState<string>("");
+  const insightRef = useRef<HTMLDivElement>(null);
   
   const questionText = getRandomItem(question.variations);
   const { protocols } = question;
+  
+  useEffect(() => {
+    if (answerSelected) {
+      // Scroll to insight with a slight delay to ensure it renders first
+      setTimeout(() => {
+        if (insightRef.current) {
+          insightRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [answerSelected]);
   
   const handleAction = (protocol: string, action: ActionType) => {
     // Skip if already selected for this protocol
@@ -57,6 +70,9 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
     // Check if all protocols have been assigned
     const allSelected = protocols.every(p => newResponses[p] !== undefined);
     if (allSelected) {
+      // Generate an overall insight by combining individual feedbacks
+      const overallInsight = Object.values(protocolFeedback).join(' ');
+      setInsightText(overallInsight);
       setAnswerSelected(true);
       
       // Auto-submit after slight delay when all are selected
@@ -87,6 +103,16 @@ const FuckMarryKillQuestion: React.FC<FuckMarryKillQuestionProps> = ({ question 
   return (
     <ScrollArea className="h-[550px] pr-2">
       <div className="space-y-4">
+        {/* Show insight at the top when all protocols are selected */}
+        {answerSelected && (
+          <div ref={insightRef} className="sticky top-0 z-10 mb-4">
+            <Card className="p-4 border-primary/30 animate-slide-up bg-card/80 backdrop-blur-sm">
+              <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
+              <p className="text-sm text-primary/90">{insightText}</p>
+            </Card>
+          </div>
+        )}
+        
         <h2 className="text-xl font-bold text-primary mb-3">
           {questionText.replace("Let's play Fuck, Marry, Kill with these protocols:", "Fuck, Marry or Kill").replace("Let's, play fuck marry or kill with these protocols", "Fuck, Marry or Kill")}
         </h2>

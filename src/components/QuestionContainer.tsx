@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import MultipleChoiceQuestion from './MultipleChoiceQuestion';
@@ -57,11 +58,11 @@ const QuestionContainer: React.FC = () => {
         <div className="button-left invisible"></div>
         
         <div 
-          className={`button-middle button-3d w-20 h-20 flex items-center justify-center ${answerSelected ? 'button-3d-active' : 'button-3d-inactive'}`} 
+          className={`button-middle button-3d w-24 h-24 flex items-center justify-center ${answerSelected ? 'button-3d-active' : 'button-3d-inactive'}`} 
           onClick={handleButtonClick}
         >
           <SkipForward 
-            className={`text-white w-10 h-10 ${answerSelected ? 'animate-pulse-3d' : ''}`} 
+            className={`text-white w-12 h-12 ${answerSelected ? '' : ''}`} 
           />
         </div>
         
