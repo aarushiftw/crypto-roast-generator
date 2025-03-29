@@ -94,7 +94,7 @@ const RoastResult: React.FC = () => {
     if (!roastResult) return;
     
     const tweetText = encodeURIComponent(
-      `I just got absolutely destroyed by the Crypto Roast Bot! I'm a Level ${nftLevel} crypto degenerate (${nftLevelDescriptions[nftLevel]}). 4/20: Brahma's NFT will expose the truth.`
+      `I just got absolutely destroyed by the Onchain Roast Bot! I'm a Level ${nftLevel} degenerate (${nftLevelDescriptions[nftLevel]}). 4/20: Brahma's NFT will expose the truth.`
     );
     const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(window.location.href)}`;
     window.open(tweetUrl, '_blank');
