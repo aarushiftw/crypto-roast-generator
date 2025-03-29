@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import TypewriterText from './TypewriterText';
@@ -50,8 +49,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
             <div className="mt-4 mb-2 animate-fade-in">
               <Button
                 onClick={handleClick} 
-                size="sm"
-                className="w-2/3 bg-primary/90 hover:bg-primary text-primary-foreground font-medium"
+                size="lg"
+                className="w-3/4 bg-[#8B5CF6] hover:bg-[#7E69AB] text-white font-bold uppercase tracking-wider shadow-lg transform transition-all hover:scale-105 active:scale-95"
               >
                 Roast Me
               </Button>
@@ -70,4 +69,3 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
 };
 
 export default WelcomeScreen;
-
