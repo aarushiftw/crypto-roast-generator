@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useRoast } from '@/contexts/RoastContext';
 import TypewriterText from './TypewriterText';
@@ -28,7 +29,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       
       <div className="tamagotchi-screen">
         <div className="screen-inner text-center flex flex-col justify-between py-8">
-          <h1 className="text-6xl font-medium text-white leading-snug mb-4 mt-2">
+          <h1 className="text-8xl font-medium text-white leading-snug mb-4 mt-2">
             Hope Your Gas Fees
             <br />
             Covered Emotional Damage
@@ -69,3 +70,4 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
 };
 
 export default WelcomeScreen;
+
