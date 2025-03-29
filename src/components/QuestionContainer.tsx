@@ -64,7 +64,7 @@ const QuestionContainer: React.FC = () => {
           onClick={handleButtonClick}
         >
           {answerSelected && (
-            <SkipForward className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-6 w-6 text-primary" />
+            <SkipForward className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-7 w-7 text-primary" />
           )}
         </div>
         
