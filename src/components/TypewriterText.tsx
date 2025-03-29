@@ -8,6 +8,7 @@ interface TypewriterTextProps {
   onComplete?: () => void;
   delay?: number;
   typingSpeed?: number;
+  loop?: boolean;
 }
 
 const TypewriterText: React.FC<TypewriterTextProps> = ({ 
@@ -15,7 +16,8 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   className = '', 
   onComplete,
   delay = 0,
-  typingSpeed = 30
+  typingSpeed = 30,
+  loop = false
 }) => {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -30,6 +32,8 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
       }
       
       setIsTyping(true);
+      // Clear any previous text before starting to type
+      setDisplayText('');
       await simulateTyping(text, setDisplayText, typingSpeed, typingSpeed * 1.5);
       setIsTyping(false);
       

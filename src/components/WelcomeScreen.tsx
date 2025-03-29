@@ -10,15 +10,9 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
   const [showStartButton, setShowStartButton] = useState(false);
-  const [typingKey, setTypingKey] = useState(0);
   
   const handleTypingComplete = () => {
     setTimeout(() => setShowStartButton(true), 600);
-    // Set up a timer to restart the typing effect after 10 seconds
-    setTimeout(() => {
-      setShowStartButton(false);
-      setTypingKey(prev => prev + 1);
-    }, 10000);
   };
 
   const handleClick = () => {
@@ -42,7 +36,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
         <div className="space-y-6 px-4">
           <div className="min-h-[100px] flex items-center justify-center">
             <TypewriterText 
-              key={typingKey}
               text="Answer honestly or lie, on 4/20, your real onchain imprint will reveal the truth. Everything you did onchain, will reveal what your ENS name desperately tries to rebrand." 
               className="text-md font-medium terminal-text text-center"
               onComplete={handleTypingComplete}
