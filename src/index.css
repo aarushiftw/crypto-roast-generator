@@ -10,19 +10,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 235 35% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 230 25% 55%;  /* Changed from teal to a more muted blue */
+    --primary: 187 80% 65%;
     --primary-foreground: 235 35% 8%;
     --secondary: 235 35% 15%;
     --secondary-foreground: 0 0% 98%;
     --muted: 235 35% 15%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 230 25% 55%;  /* Changed from teal to match primary */
+    --accent: 187 80% 65%;
     --accent-foreground: 235 35% 8%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 235 35% 20%;
     --input: 235 35% 20%;
-    --ring: 230 25% 55%;  /* Changed from teal to match primary */
+    --ring: 187 80% 65%;
     --radius: 0.5rem;
   }
 }
@@ -59,8 +59,8 @@
 }
 
 .terminal-text {
-  color: #4a6cba;  /* Changed from teal to a muted blue */
-  text-shadow: 0 0 5px rgba(74, 108, 186, 0.4);
+  color: #31EBF0;
+  text-shadow: 0 0 5px rgba(49, 235, 240, 0.4);
 }
 
 /* Typewriter cursor animation - improved */
@@ -139,7 +139,7 @@ button.option-button:disabled:not(.selected) {
 .card {
   @apply backdrop-blur-sm bg-opacity-20;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(74, 108, 186, 0.2);  /* Changed from teal to blue */
+  border: 1px solid rgba(49, 235, 240, 0.2);
 }
 
 /* Better button hover effects */
@@ -161,7 +161,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #4a6cba 0%, #3a5399 100%);  /* Changed from teal to blue */
+  background: linear-gradient(90deg, #31EBF0 0%, #2BC7CD 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -170,8 +170,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Futuristic background elements */
 .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, rgba(74, 108, 186, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(74, 108, 186, 0.1) 1px, transparent 1px);  /* Changed from teal to blue */
+    linear-gradient(to right, rgba(49, 235, 240, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(49, 235, 240, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -215,8 +215,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .cyberpunk-border {
   position: relative;
-  border: 1px solid rgba(74, 108, 186, 0.2);  /* Changed from teal to blue */
-  box-shadow: 0 0 10px rgba(74, 108, 186, 0.1);  /* Changed from teal to blue */
+  border: 1px solid rgba(49, 235, 240, 0.2);
+  box-shadow: 0 0 10px rgba(49, 235, 240, 0.1);
 }
 
 .cyberpunk-border::after {
@@ -226,7 +226,7 @@ h1, h2, h3, h4, h5, h6 {
   left: -1px;
   right: -1px;
   bottom: -1px;
-  background: linear-gradient(90deg, transparent, rgba(74, 108, 186, 0.2), transparent);  /* Changed from teal to blue */
+  background: linear-gradient(90deg, transparent, rgba(49, 235, 240, 0.2), transparent);
   z-index: -1;
   animation: borderGlow 4s linear infinite;
 }
@@ -245,8 +245,8 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   height: 60px;
   background-image: 
-    linear-gradient(to right, rgba(74, 108, 186, 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(74, 108, 186, 0.2) 1px, transparent 1px);  /* Changed from teal to blue */
+    linear-gradient(to right, rgba(49, 235, 240, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(49, 235, 240, 0.2) 1px, transparent 1px);
   background-size: 40px 40px;
   opacity: 0.3;
   z-index: 0;
@@ -317,7 +317,7 @@ h1, h2, h3, h4, h5, h6 {
 .tamagotchi-container {
   position: relative;
   border-radius: 24px;
-  background-color: hsl(var(--primary));
+  background-color: theme('colors.primary');
   padding: 42px 16px 64px;
   box-shadow: 
     0 10px 25px rgba(0, 0, 0, 0.3),
@@ -342,7 +342,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: hsl(var(--destructive));
+  background-color: theme('colors.destructive');
   box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
   animation: blink 3s infinite alternate;
 }
@@ -353,9 +353,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .tamagotchi-screen {
   width: 100%;
-  background-color: hsl(var(--background));
+  background-color: theme('colors.background');
   border-radius: 16px;
-  border: 8px solid hsl(var(--secondary));
+  border: 8px solid theme('colors.secondary');
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
   margin-bottom: 24px;
   overflow: hidden;
@@ -366,8 +366,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 16px;
   background-color: rgba(0, 0, 0, 0.2);
   min-height: 300px;
-  max-height: none; /* Remove max-height to prevent scrolling */
-  overflow-y: visible; /* Changed from auto to visible to prevent scrolling */
+  overflow-y: auto;
+  max-height: 70vh;
 }
 
 .tamagotchi-buttons {
@@ -381,7 +381,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: hsl(var(--secondary));
+  background-color: theme('colors.secondary');
   border: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
     0 3px 5px rgba(0, 0, 0, 0.3),
@@ -419,7 +419,7 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(74, 108, 186, 0.05) 50%,  /* Changed from teal to blue */
+    rgba(32, 255, 255, 0.05) 50%,
     transparent 100%
   );
   background-size: 100% 4px;
@@ -453,16 +453,16 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Override some existing styles for better Tamagotchi look */
 .tamagotchi-screen button.option-button {
-  background-color: rgba(74, 108, 186, 0.1);  /* Changed from teal to blue */
-  border-color: rgba(74, 108, 186, 0.3);  /* Changed from teal to blue */
+  background-color: rgba(49, 235, 240, 0.1);
+  border-color: rgba(49, 235, 240, 0.3);
   transition: all 0.2s ease;
 }
 
 .tamagotchi-screen button.option-button:hover {
-  background-color: rgba(74, 108, 186, 0.2);  /* Changed from teal to blue */
-  border-color: rgba(74, 108, 186, 0.5);  /* Changed from teal to blue */
+  background-color: rgba(49, 235, 240, 0.2);
+  border-color: rgba(49, 235, 240, 0.5);
 }
 
 .tamagotchi-screen .gradient-text {
-  text-shadow: 0 0 8px rgba(74, 108, 186, 0.4);  /* Changed from teal to blue */
+  text-shadow: 0 0 8px rgba(49, 235, 240, 0.4);
 }
