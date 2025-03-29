@@ -45,9 +45,26 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
 
   const questionText = getRandomItem(question.variations);
 
+  // Find the selected answer index
+  const selectedAnswerIndex = answerSelected 
+    ? question.answers.findIndex((answer, i) => 
+        getRandomItem(answer.responses) === responseText
+      )
+    : -1;
+
   return (
     <ScrollArea className="h-[550px] pr-2">
       <div className="space-y-4 animate-fade-in">
+        {/* Show insight at the top when an answer is selected */}
+        {answerSelected && selectedAnswerIndex !== -1 && (
+          <div ref={insightRef} className="sticky top-0 z-10 mb-4">
+            <Card className="p-4 border-primary/30 animate-slide-up bg-card/80">
+              <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
+              <p className="text-sm text-primary/90">{responseText}</p>
+            </Card>
+          </div>
+        )}
+
         <div className="space-y-4">
           <h2 className="text-lg font-bold text-primary mb-3">
             {questionText}
@@ -59,27 +76,16 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
                 <button
                   onClick={() => handleSelectAnswer(index)}
                   className={`py-2 px-4 text-left rounded-md border transition-colors duration-300 w-full
-                    ${answerSelected && index === question.answers.findIndex((_, i) => i === question.answers.findIndex((_, i) => responseText === getRandomItem(question.answers[i].responses)))
+                    ${answerSelected && index === selectedAnswerIndex
                       ? 'bg-primary/20 border-primary/80 translate-x-1'
                       : 'hover:bg-primary/20 hover:border-primary/50 hover:translate-x-1 bg-card/30 border-border'}
-                    text-sm ${answerSelected && index !== question.answers.findIndex((_, i) => i === question.answers.findIndex((_, i) => responseText === getRandomItem(question.answers[i].responses)))
+                    text-sm ${answerSelected && index !== selectedAnswerIndex
                       ? 'opacity-50'
                       : ''}`}
                   disabled={answerSelected}
                 >
                   {answer.text}
                 </button>
-                
-                {/* Display insight card immediately after the selected answer */}
-                {answerSelected && 
-                 index === question.answers.findIndex((_, i) => i === question.answers.findIndex((_, i) => responseText === getRandomItem(question.answers[i].responses))) && (
-                  <div ref={insightRef} className="sticky top-0 z-10">
-                    <Card className="p-4 border-primary/30 animate-slide-up bg-card/80">
-                      <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
-                      <p className="text-sm text-primary/90">{responseText}</p>
-                    </Card>
-                  </div>
-                )}
               </div>
             ))}
           </div>
