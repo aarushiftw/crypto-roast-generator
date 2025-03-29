@@ -29,7 +29,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
       
       <div className="tamagotchi-screen">
         <div className="screen-inner text-center flex flex-col justify-between py-6">
-          <h1 className="text-2xl font-bold gradient-text leading-tight mb-4">
+          <h1 className="text-3xl font-bold text-white leading-tight mb-4">
             Hope Your Gas Fees
             <br />
             Covered Emotional Damage
