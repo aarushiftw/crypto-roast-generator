@@ -13,7 +13,7 @@ const QuestionContainer: React.FC = () => {
   } = useRoast();
 
   if (!currentQuestion) {
-    return <div className="p-6 tamagotchi-container max-w-2xl w-full">
+    return <div className="tamagotchi-container">
       <div className="tamagotchi-screen flex items-center justify-center">
         <p className="text-center">Loading next question...</p>
       </div>
@@ -21,7 +21,7 @@ const QuestionContainer: React.FC = () => {
   }
 
   return (
-    <div className="tamagotchi-container max-w-2xl w-full">
+    <div className="tamagotchi-container">
       <div className="tamagotchi-top-lights">
         <div className="light light-left"></div>
         <div className="light light-right"></div>
@@ -29,8 +29,8 @@ const QuestionContainer: React.FC = () => {
       
       <div className="tamagotchi-screen">
         <div className="screen-inner">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-sm text-primary font-medium">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-xs text-primary font-medium">
               Question {currentQuestionIndex + 1} of {totalQuestions}
             </span>
           </div>

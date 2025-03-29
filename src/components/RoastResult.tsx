@@ -17,6 +17,7 @@ const RoastResult: React.FC = () => {
   const [displayStage, setDisplayStage] = useState(0);
   const [fullRoastComplete, setFullRoastComplete] = useState(false);
   const [nftLevel, setNftLevel] = useState(1);
+  // Limit the number of visible specific roasts to prevent overflow
   const [visibleSpecificRoasts, setVisibleSpecificRoasts] = useState<number[]>([]);
 
   const roastOpening = getRandomRoastOpening();
@@ -40,10 +41,13 @@ const RoastResult: React.FC = () => {
       setDisplayStage(2);
       await delay(1500);
       
-      // After main roast, show specific roasts one by one
+      // After main roast, show specific roasts one by one (limit to 2 roasts)
       setDisplayStage(3);
       
-      for (let i = 0; i < roastResult.specificRoasts.length; i++) {
+      // Only show up to 2 specific roasts to prevent overflow
+      const roastsToShow = roastResult.specificRoasts.slice(0, 2);
+      
+      for (let i = 0; i < roastsToShow.length; i++) {
         await delay(1500);
         setVisibleSpecificRoasts(prev => [...prev, i]);
       }
@@ -72,37 +76,37 @@ const RoastResult: React.FC = () => {
   }
 
   return (
-    <div className="tamagotchi-container max-w-2xl w-full">
+    <div className="tamagotchi-container">
       <div className="tamagotchi-top-lights">
         <div className="light light-left"></div>
         <div className="light light-right"></div>
       </div>
       
       <div className="tamagotchi-screen">
-        <div className="screen-inner space-y-6">
-          <h2 className="text-2xl font-bold text-center gradient-text mb-6">
+        <div className="screen-inner space-y-4">
+          <h2 className="text-xl font-bold text-center gradient-text mb-3">
             YOUR ONCHAIN VERDICT
           </h2>
           
           {displayStage >= 1 && (
             <div className="animate-fade-in">
-              <p className="text-lg text-primary/90">{roastOpening}</p>
-              <p className="text-lg italic text-foreground/80 mt-2">{roastReaction}</p>
+              <p className="text-primary/90">{roastOpening}</p>
+              <p className="italic text-foreground/80 mt-1">{roastReaction}</p>
             </div>
           )}
           
           {displayStage >= 2 && (
             <div className="animate-fade-in">
-              <p className="text-lg italic text-foreground/80 mb-3">{midRoastReaction}</p>
-              <p className="text-xl font-bold terminal-text py-2">{roastResult.roastLine}</p>
+              <p className="italic text-foreground/80 mb-2">{midRoastReaction}</p>
+              <p className="font-bold terminal-text py-1">{roastResult.roastLine}</p>
             </div>
           )}
           
           {displayStage >= 3 && (
-            <div className="space-y-3">
-              {roastResult.specificRoasts.map((roast, index) => (
+            <div className="space-y-2">
+              {roastResult.specificRoasts.slice(0, 2).map((roast, index) => (
                 visibleSpecificRoasts.includes(index) && (
-                  <p key={index} className="text-lg text-primary/90 animate-fade-in">
+                  <p key={index} className="text-primary/90 animate-fade-in">
                     &gt; {roast}
                   </p>
                 )
@@ -112,44 +116,45 @@ const RoastResult: React.FC = () => {
           
           {displayStage >= 4 && (
             <div className="animate-fade-in">
-              <div className="mt-6 pt-4 border-t border-primary/20">
-                <p className="text-lg font-medium">
-                  You're likely to mint a Level {nftLevel} NFT. {
+              <div className="mt-3 pt-2 border-t border-primary/20">
+                <p className="font-medium">
+                  Level {nftLevel} NFT {
                     roastResult.percentageScore > 70 
-                      ? "Even BitConnect victims are looking at your trades thinking 'at least I'm not that guy.'" 
-                      : "There's still hope for you... barely."
+                      ? "Even BitConnect victims look better" 
+                      : "There's still hope... barely"
                   }
                 </p>
               </div>
               
               <div>
-                <p className="text-lg italic text-primary/90 mb-4 mt-4">{roastClosing}</p>
+                <p className="italic text-primary/90 mb-2 mt-2">{roastClosing}</p>
                 
-                <p className="text-lg text-foreground/90 border-t border-primary/20 pt-4 mt-4">
-                  Come 4/20, Brahma's onchain imprint NFT will expose the truth.
+                <p className="text-foreground/90 border-t border-primary/20 pt-2 mt-2">
+                  4/20: Brahma's NFT will expose the truth
                 </p>
               </div>
               
-              <div className="space-y-4 pt-4">
+              <div className="space-y-3 pt-2">
                 <div className="flex justify-center">
                   <a 
                     href="https://t.me/BrahmaRewards" 
                     target="_blank"
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-secondary hover:bg-secondary/80 text-foreground 
-                      rounded-md transition-colors duration-300 font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-secondary hover:bg-secondary/80 text-foreground 
+                      rounded-md transition-colors duration-300 font-medium text-sm"
                   >
-                    <Bot size={18} className="text-primary" />
+                    <Bot size={16} className="text-primary" />
                     Remind me to mint
                   </a>
                 </div>
                 
                 <Button 
                   onClick={handleShareOnTwitter}
-                  className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+                  className="w-full flex items-center justify-center gap-2 bg-primary/80 hover:bg-primary text-primary-foreground text-sm py-1"
+                  size="sm"
                 >
-                  <Share size={18} />
-                  Share My Roast Report
+                  <Share size={16} />
+                  Share My Roast
                 </Button>
               </div>
             </div>

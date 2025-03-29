@@ -42,21 +42,21 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
   const questionText = getRandomItem(question.variations);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-4 animate-fade-in">
       {!answerSelected ? (
-        <div className="space-y-6">
-          <h2 className="text-xl md:text-2xl font-bold text-primary mb-6">
+        <div className="space-y-4">
+          <h2 className="text-lg font-bold text-primary mb-3">
             {questionText}
           </h2>
           
-          <div className="grid grid-cols-1 gap-3 mt-6">
+          <div className="grid grid-cols-1 gap-2 mt-3">
             {question.answers.map((answer, index) => (
               <button
                 key={index}
                 onClick={() => handleSelectAnswer(index)}
-                className="py-4 px-5 text-left rounded-md border transition-colors duration-300
+                className="py-2 px-4 text-left rounded-md border transition-colors duration-300
                   hover:bg-primary/20 hover:border-primary/50 hover:translate-x-1
-                  bg-card/30 border-border"
+                  bg-card/30 border-border text-sm"
               >
                 {answer.text}
               </button>
@@ -64,13 +64,14 @@ const MultipleChoiceQuestion: React.FC<MultipleChoiceQuestionProps> = ({ questio
           </div>
         </div>
       ) : (
-        <Card className="p-6 border-primary/30 animate-slide-up bg-card/80">
-          <h3 className="text-lg font-semibold mb-4 text-primary">Insight</h3>
-          <p className="text-lg text-primary/90 mb-6">{responseText}</p>
+        <Card className="p-4 border-primary/30 animate-slide-up bg-card/80">
+          <h3 className="text-base font-semibold mb-2 text-primary">Insight</h3>
+          <p className="text-sm text-primary/90 mb-4">{responseText}</p>
           
           <Button 
             onClick={handleContinue} 
-            className="w-full mt-2 bg-primary/80 hover:bg-primary text-primary-foreground"
+            className="w-full bg-primary/80 hover:bg-primary text-primary-foreground text-sm"
+            size="sm"
           >
             Next Question
           </Button>
